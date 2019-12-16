@@ -15,7 +15,7 @@ from creditcards.models import CardNumberField, SecurityCodeField, CardExpiryFie
 
 
 class User(models.Model):
-    user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user_id = models.AutoField(primary_key=True, editable=False, auto_created=True, db_column='user_id')
     password = models.CharField(max_length=50, blank=False, null=False)
     nick_name = models.CharField(max_length=30, blank=False, null=False)
     creation_date = models.DateTimeField(auto_created=True, auto_now_add=True)
