@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import User  #, CreditCard, Address
+from .models import CustomUser  #, CreditCard, Address
 
 
-@admin.register(User)
+@admin.register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
     pass
 #
