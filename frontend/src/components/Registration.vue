@@ -12,6 +12,7 @@
             <div class="form-group">
               <label for="registerName">Username</label>
               <input
+                @blur="checkUserNameExists(username)"
                 v-model="username"
                 name="username"
                 type="text"
@@ -19,6 +20,7 @@
                 id="registerName"
                 aria-describedby="loginHelp"
                 placeholder="Enter name"
+                pattern="^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$"
                 required
               />
               <div v-if="usernameErrors">
@@ -32,7 +34,7 @@
                 </p>
               </div>
               <small v-else id="registerHelp" class="form-text text-muted"
-                >Enter your login and password and press submit button
+                >Enter your login and password and press submit
               </small>
             </div>
 
@@ -81,6 +83,7 @@
             <div class="form-group">
               <label for="registerEmail">Email</label>
               <input
+                @blur="checkEmailExists(email)"
                 v-model="email"
                 name="email"
                 type="email"
@@ -100,7 +103,11 @@
               </p>
             </div>
 
-            <button type="submit" class="btn btn-primary" id="registerSubmit">
+            <button
+                    :disabled="!thereAreErrors || fieldsAreEmpty"
+                    type="submit"
+                    class="btn btn-primary"
+                    id="registerSubmit">
               Submit
             </button>
           </div>
@@ -128,6 +135,20 @@
         confirmPasswordError: false,
         emailErrors: null,
       }
+    },
+    computed:{
+      thereAreErrors(){
+        return this.usernameErrors === null &&
+                this.passwordErrors === null &&
+                this.emailErrors === null &&
+                this.confirmPasswordError === false;
+      },
+      fieldsAreEmpty(){
+        return this.username === null || this.username === "" ||
+                this.password1 === null || this.password1 === "" ||
+                this.password2 === null || this.password2 === "" ||
+                this.email === null || this.email === "";
+      },
     },
     methods: {
       registerUser() {
@@ -160,6 +181,33 @@
       },
       checkPasswords() {
         this.confirmPasswordError = this.password1 !== this.password2;
+      },
+      checkUserNameExists(username){
+        let endpoint = '/api/rest-auth/user/name/';
+        apiService(endpoint, "POST", {username: username})
+                .then(response => response.json())
+                .then(json_response => {
+                    if(json_response.message){
+                      this.usernameErrors = [json_response.message]
+                    }else{
+                      this.usernameErrors = null;
+                    }
+                })
+                .catch(error => console.log(error))
+
+      },
+      checkEmailExists(email){
+        let endpoint = '/api/rest-auth/user/email/';
+        apiService(endpoint, "POST", {email: email})
+                .then(response => response.json())
+                .then(json_response => {
+                  if(json_response.message){
+                    this.emailErrors = [json_response.message]
+                  }else{
+                    this.emailErrors = null;
+                  }
+                })
+                .catch(error => console.log(error))
       }
     }
   }
