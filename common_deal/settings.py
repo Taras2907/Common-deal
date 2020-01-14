@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
 
+    'webpack_loader',
+
     'offers.apps.OffersConfig',
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
@@ -74,7 +76,7 @@ ROOT_URLCONF = 'common_deal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,7 +144,23 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+
+EMAIL_HOST_USER = 'common_deal_send_emails'
+
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = "Common_deal@some.com"
 
 STATIC_URL = '/static/'
 
@@ -155,4 +173,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 
+}
+
+WEBPACK_LOADER = {
+    'DEFAULT':{
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
+    }
 }
