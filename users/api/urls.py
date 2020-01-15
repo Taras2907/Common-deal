@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_auth import views
+from ..api.views import UsernameIsUsedView, EmailIsUsedView
 
 urlpatterns = [
 
@@ -9,7 +10,11 @@ urlpatterns = [
 
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
 
-    path('rest-auth/password/reset/confirm/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path('rest-auth/password/reset/confirm/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name="password-reset-confirm"),
+
+    path('rest-auth/user/name/', UsernameIsUsedView.as_view(), name="user-exists"),
+
+    path('rest-auth/user/email/', EmailIsUsedView.as_view(), name="email-exists"),
 
 
 

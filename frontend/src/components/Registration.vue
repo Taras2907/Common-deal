@@ -12,7 +12,7 @@
             <div class="form-group">
               <label for="registerName">Username</label>
               <input
-                @blur="checkUserNameExists(username)"
+                @blur="validateUsername(username)"
                 v-model="username"
                 name="username"
                 type="text"
@@ -23,6 +23,7 @@
                 pattern="^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$"
                 required
               />
+
               <div v-if="usernameErrors">
                 <p class="text-left mt-2">
                   <small
@@ -34,13 +35,14 @@
                 </p>
               </div>
               <small v-else id="registerHelp" class="form-text text-muted"
-                >Enter your login and password and press submit
+                >Fill the form and press submit to create account
               </small>
             </div>
 
             <div class="form-group">
               <label for="registerPassword">Password</label>
               <input
+                @blur="validatePassword(password1)"
                 v-model="password1"
                 name="password1"
                 type="password"
@@ -104,7 +106,7 @@
             </div>
 
             <button
-                    :disabled="!thereAreErrors || fieldsAreEmpty"
+                    :disabled="thereAreErrors || fieldsAreEmpty"
                     type="submit"
                     class="btn btn-primary"
                     id="registerSubmit">
@@ -138,10 +140,10 @@
     },
     computed:{
       thereAreErrors(){
-        return this.usernameErrors === null &&
+        return !(this.usernameErrors === null &&
                 this.passwordErrors === null &&
                 this.emailErrors === null &&
-                this.confirmPasswordError === false;
+                this.confirmPasswordError === false);
       },
       fieldsAreEmpty(){
         return this.username === null || this.username === "" ||
@@ -208,6 +210,27 @@
                   }
                 })
                 .catch(error => console.log(error))
+      },
+      validateUsername(username){
+        if (username.length < 4 || username.length > 15){
+          this.usernameErrors = ["Username should be between 5 and 15 symbols "]
+        }else{
+          this.usernameErrors = null;
+          this.checkUserNameExists(username)
+        }
+      },
+      validatePassword(password){
+        if (password.length < 8 || password.length > 15){
+          this.passwordErrors = ["Password should be between 8 and 15 symbols"]
+        }else{
+          this.passwordErrors = null;
+          console.log("numeric is " + !isNaN(password));
+          if (!isNaN(password)){
+            this.passwordErrors = ["Password should not be entirely numeric"];
+          }else{
+            this.passwordErrors = null;
+          }
+        }
       }
     }
   }
