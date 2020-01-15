@@ -182,7 +182,9 @@
         }
       },
       checkPasswords() {
-        this.confirmPasswordError = this.password1 !== this.password2;
+        this.confirmPasswordError =
+            ((this.password1 !== this.password2)
+                && this.password1 !== "" && (this.password2 !=="" && this.password2 !== null));
       },
       checkUserNameExists(username){
         let endpoint = '/api/rest-auth/user/name/';
@@ -212,7 +214,7 @@
                 .catch(error => console.log(error))
       },
       validateUsername(username){
-        if (username.length < 4 || username.length > 15){
+        if ((username.length < 4 || username.length > 15) && username !== ""){
           this.usernameErrors = ["Username should be between 5 and 15 symbols "]
         }else{
           this.usernameErrors = null;
@@ -220,12 +222,12 @@
         }
       },
       validatePassword(password){
-        if (password.length < 8 || password.length > 15){
+        this.checkPasswords();
+        if ((password.length < 8 || password.length > 15) && password !== ""){
           this.passwordErrors = ["Password should be between 8 and 15 symbols"]
         }else{
           this.passwordErrors = null;
-          console.log("numeric is " + !isNaN(password));
-          if (!isNaN(password)){
+          if (!isNaN(password) && password !== ""){
             this.passwordErrors = ["Password should not be entirely numeric"];
           }else{
             this.passwordErrors = null;
