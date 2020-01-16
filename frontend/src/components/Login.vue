@@ -35,10 +35,11 @@
       </div>
       <div class="form-group">
         <div class="row-no-gutters px-0 mx-0 text-left">
-                <label class="col-sm-6 text-left pl-2" for="loginPassword">Password</label>
-                <router-link class="col-sm-6 text-left pl-2"
-                             :to="{name: 'password-recover'}"
-                >Forgot password?</router-link>
+          <label class="col-sm-6 text-left pl-2" for="loginPassword">Password</label>
+          <router-link class="col-sm-6 text-left pl-2"
+                       :to="{name: 'password-recover'}"
+          >Forgot password?
+          </router-link>
         </div>
         <input
                 v-model="password"
@@ -96,8 +97,8 @@
               if (!responseData.key) {
                 this.applyErrors(responseData)
               } else {
-                this.errors = null;
-                localStorage.setItem("username", this.username)
+                localStorage.setItem("username", this.username);
+                this.$router.push("/");
               }
             })
             .catch(error => console.log(error))

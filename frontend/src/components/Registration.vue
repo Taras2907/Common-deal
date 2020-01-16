@@ -12,15 +12,15 @@
             <div class="form-group">
               <label for="registerName">Username</label>
               <input
-                @blur="validateUsername(username)"
-                v-model="username"
-                name="username"
-                type="text"
-                class="form-control"
-                id="registerName"
-                aria-describedby="loginHelp"
-                placeholder="Enter name"
-                required
+                      @blur="validateUsername(username)"
+                      v-model="username"
+                      name="username"
+                      type="text"
+                      class="form-control"
+                      id="registerName"
+                      aria-describedby="loginHelp"
+                      placeholder="Enter name"
+                      required
               />
 
               <div v-if="usernameErrors">
@@ -115,7 +115,7 @@
               <span class="spinner-grow spinner-grow-sm"
                     role="status"
                     aria-hidden="true"></span>
-                      Loading...
+              Loading...
             </button>
             <button v-else
                     :disabled="thereAreErrors || fieldsAreEmpty"
@@ -139,9 +139,9 @@
     name: "RegistrationComponent",
     data() {
       return {
-        username: null,
-        password1: null,
-        password2: null,
+        username: "",
+        password1: "",
+        password2: "",
         email: null,
         isRegistering: false,
         usernameErrors: null,
@@ -150,12 +150,12 @@
         emailErrors: null,
       }
     },
-    computed:{
-      thereAreErrors(){
+    computed: {
+      thereAreErrors() {
         return (this.usernameErrors !== null &&
-                this.passwordErrors !== null &&
-                this.emailErrors !== null &&
-                this.confirmPasswordError !== false);
+            this.passwordErrors !== null &&
+            this.emailErrors !== null &&
+            this.confirmPasswordError !== false);
       },
       fieldsAreEmpty() {
         return this.username === null || this.username === "" ||
@@ -238,13 +238,13 @@
       },
       validatePassword(password) {
         this.checkPasswords();
-        if ((password.length < 7 || password.length > 15) && password !== ""){
+        if ((password.length < 7 || password.length > 15) && password !== "") {
           this.passwordErrors = ["Password should be between 8 and 15 symbols"]
-        }else{
+        } else {
           this.passwordErrors = null;
-          if (!isNaN(password) && password !== ""){
+          if (!isNaN(password) && password !== "") {
             this.passwordErrors = ["Password should not be entirely numeric"];
-          }else{
+          } else {
             this.passwordErrors = null;
           }
         }
