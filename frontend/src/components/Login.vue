@@ -34,7 +34,12 @@
         </small>
       </div>
       <div class="form-group">
-        <label for="loginPassword">Password</label>
+        <div class="row-no-gutters px-0 mx-0 text-left">
+                <label class="col-sm-6 text-left pl-2" for="loginPassword">Password</label>
+                <router-link class="col-sm-6 text-left pl-2"
+                             :to="{name: 'password-recover'}"
+                >Forgot password?</router-link>
+        </div>
         <input
                 v-model="password"
                 name="password"

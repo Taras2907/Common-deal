@@ -22,7 +22,14 @@ class EmailIsUsedView(APIView):
         email = request.data['email']
         email_exists = CustomUser.objects.filter(email=email).exists()
         if email_exists:
-            return Response({"message": "A user is already registered with this e-mail address."},
-                            status=status.HTTP_200_OK)
+            response = {"response": {
+                "message": "A user is already registered with this e-mail address.",
+                "exists": True,
+            }}
+            return Response(response, status=status.HTTP_200_OK)
         else:
-            return Response({},status=status.HTTP_200_OK)
+            response = {"response":{
+                "message": "There is no user with such email.",
+                "exists": False,
+            }}
+            return Response(response, status=status.HTTP_200_OK)
