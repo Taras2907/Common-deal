@@ -20,7 +20,6 @@
                 id="registerName"
                 aria-describedby="loginHelp"
                 placeholder="Enter name"
-                pattern="^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$"
                 required
               />
 
@@ -105,7 +104,16 @@
               </p>
             </div>
 
-            <button
+
+            <button v-if="isRegistering"
+                    class="btn btn-primary"
+                    type="button" disabled>
+              <span class="spinner-grow spinner-grow-sm"
+                    role="status"
+                    aria-hidden="true"></span>
+                      Loading...
+            </button>
+            <button v-else
                     :disabled="thereAreErrors || fieldsAreEmpty"
                     type="submit"
                     class="btn btn-primary"
@@ -140,10 +148,10 @@
     },
     computed:{
       thereAreErrors(){
-        return !(this.usernameErrors === null &&
-                this.passwordErrors === null &&
-                this.emailErrors === null &&
-                this.confirmPasswordError === false);
+        return (this.usernameErrors !== null &&
+                this.passwordErrors !== null &&
+                this.emailErrors !== null &&
+                this.confirmPasswordError !== false);
       },
       fieldsAreEmpty(){
         return this.username === null || this.username === "" ||
@@ -161,11 +169,14 @@
           password2: this.password2,
           email: this.email
         };
+        this.isRegistering = true;
         apiService(endpoint, 'POST', data)
             .then(response => response.json())
             .then(responseData => {
+              this.isRegistering = false;
               if (!responseData.key) {
                 this.applyErrors(responseData)
+
               }
             })
             .catch(error => console.log(error))
@@ -183,8 +194,10 @@
       },
       checkPasswords() {
         this.confirmPasswordError =
-            ((this.password1 !== this.password2)
-                && this.password1 !== "" && (this.password2 !=="" && this.password2 !== null));
+            ((this.password1 !== this.password2)&&
+                this.password1 !== "" &&
+                (this.password2 !=="" &&
+                    this.password2 !== null));
       },
       checkUserNameExists(username){
         let endpoint = '/api/rest-auth/user/name/';
@@ -223,7 +236,7 @@
       },
       validatePassword(password){
         this.checkPasswords();
-        if ((password.length < 8 || password.length > 15) && password !== ""){
+        if ((password.length < 7 || password.length > 15) && password !== ""){
           this.passwordErrors = ["Password should be between 8 and 15 symbols"]
         }else{
           this.passwordErrors = null;
