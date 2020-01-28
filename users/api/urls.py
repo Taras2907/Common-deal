@@ -1,4 +1,5 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 from rest_auth import views
 from ..api.views import UsernameIsUsedView, EmailIsUsedView
 

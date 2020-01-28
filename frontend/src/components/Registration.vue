@@ -1,4 +1,5 @@
 <template>
+
   <div
           class="tab-pane fade"
           id="registration"
@@ -180,7 +181,13 @@
               this.isRegistering = false;
               if (!responseData.key) {
                 this.applyErrors(responseData)
-
+              }else{
+                this.username = '';
+                this.password1 = '';
+                this.password2 = '';
+                this.email = '';
+                this.$emit('switch-tab');
+                location.reload();
               }
             })
             .catch(error => console.log(error))
@@ -220,10 +227,10 @@
         apiService(endpoint, "POST", {email: email})
             .then(response => response.json())
             .then(json_response => {
-              if (json_response.message) {
-                this.emailErrors = [json_response.message]
+              if (json_response.response.exists) {
+                this.emailErrors = [json_response.response.message]
               } else {
-                this.emailErrors = null;
+                this.emailErrors = null
               }
             })
             .catch(error => console.log(error))

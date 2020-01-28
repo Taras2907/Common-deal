@@ -157,8 +157,6 @@
 
               } else {
                 this.isChanging = false;
-
-
               }
             })
 

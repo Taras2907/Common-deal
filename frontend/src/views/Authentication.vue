@@ -36,7 +36,7 @@
           </ul>
           <div class="tab-content" id="pills-tabContent">
             <LoginComponent></LoginComponent>
-            <RegistrationComponent></RegistrationComponent>
+            <RegistrationComponent @switch-tab="switchToLogin"></RegistrationComponent>
           </div>
         </div>
       </div>
@@ -52,7 +52,13 @@
 
   export default {
     name: "Authentication",
-    components: {LoginComponent, RegistrationComponent}
+    components: {LoginComponent, RegistrationComponent},
+    methods:{
+        switchToLogin(){
+            let registrationTab = document.querySelector("#pills-home-tab");
+            registrationTab.click();
+        }
+    }
   }
 </script>
 
