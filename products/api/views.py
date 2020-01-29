@@ -1,0 +1,59 @@
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404, get_list_or_404
+from rest_framework.response import Response
+from rest_framework import status
+from .permissions import IsSellerOrReadOnly
+from products.models import Product
+from products.api.serializers import ProductCategorySerializer, ProductSerializer, ProductSubcategorySerializer
+
+
+class ProductListCreateView(APIView, LimitOffsetPagination):
+    default_limit = 2
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self, request):
+        products = get_list_or_404(Product)
+        return self.paginate_queryset(products, self.request)
+
+    def get(self, request):
+        products = self.get_queryset(request=request)
+        serializer = ProductSerializer(products, many=True, context={"request":request})
+        return self.get_paginated_response(serializer.data)
+
+    def post(self, request):
+        self.check_object_permissions(self.request, request.data)
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductRetrieveUpdateDeleteView(APIView):
+    permission_classes = [IsSellerOrReadOnly]
+
+    def get_object(self, pk):
+        product = get_object_or_404(Product, pk=pk)
+        self.check_object_permissions(self.request, product)
+        return product
+
+    def get(self,request, pk):
+        product = self.get_object(pk)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        product = self.get_object(pk)
+        serializer = ProductSerializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        product = self.get_object(pk)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
