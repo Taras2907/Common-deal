@@ -15,6 +15,8 @@ class ProductListCreateView(APIView, LimitOffsetPagination):
 
     def get_queryset(self, request):
         products = get_list_or_404(Product)
+        print(request.query_params.get("order"))
+        print(request.query_params.get("order_by"))
         return self.paginate_queryset(products, self.request)
 
     def get(self, request):
