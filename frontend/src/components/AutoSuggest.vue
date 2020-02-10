@@ -1,27 +1,44 @@
 <template>
-    <div class="demo">
-        <div class="autosuggest-container">
-            <vue-autosuggest
-                    v-model="query"
-                    :suggestions="filteredOptions"
-                    @focus="focusMe"
-                    @click="clickHandler"
-                    @input="onInputChange"
-                    @selected="onSelected"
-                    :get-suggestion-value="getSuggestionValue"
-                    :input-props="{id:'autosuggest__input', placeholder:'Search for anything'}">
-                <div slot-scope="{suggestion}" style="display: flex; align-items: center;">
-                    <img :style="{ display: 'flex', width: '25px', height: '25px', borderRadius: '15px', marginRight: '10px'}"
-                         :src="suggestion.item.avatar"/>
-                    <div :style="{ display: 'flex', color: 'navyblue'}">{{suggestion.item.name}}</div>
-                </div>
-            </vue-autosuggest>
+  <div class="demo">
+    <div class="autosuggest-container">
+      <vue-autosuggest
+        v-model="query"
+        :suggestions="filteredOptions"
+        @focus="focusMe"
+        @click="clickHandler"
+        @input="onInputChange"
+        @selected="onSelected"
+        :get-suggestion-value="getSuggestionValue"
+        :input-props="{
+          id: 'autosuggest__input',
+          placeholder: 'Search for anything'
+        }"
+      >
+        <div
+          slot-scope="{ suggestion }"
+          style="display: flex; align-items: center;"
+        >
+          <img
+            :style="{
+              display: 'flex',
+              width: '25px',
+              height: '25px',
+              borderRadius: '15px',
+              marginRight: '10px'
+            }"
+            :src="suggestion.item.avatar"
+          />
+          <div :style="{ display: 'flex', color: 'navyblue' }">
+            {{ suggestion.item.name }}
+          </div>
         </div>
+      </vue-autosuggest>
     </div>
+  </div>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
 
     import {VueAutosuggest} from "vue-autosuggest";
 
