@@ -1,27 +1,28 @@
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
-from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 from rest_framework import status
+
+from django.shortcuts import get_object_or_404
+
 from .permissions import IsSellerOrReadOnly
 from products.models import Product
 from products.api.serializers import ProductCategorySerializer, ProductSerializer, ProductSubcategorySerializer
 
 
-class ProductListCreateView(APIView, LimitOffsetPagination):
-    default_limit = 2
+class ProductListCreateView(APIView, PageNumberPagination):
+    page_size = 8
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self, request):
-        products = get_list_or_404(Product)
-        print(request.query_params.get("order"))
-        print(request.query_params.get("order_by"))
+        order = self.request.query_params.get("orderby", default="id")
+        products = Product.objects.all().order_by(order)
         return self.paginate_queryset(products, self.request)
 
     def get(self, request):
         products = self.get_queryset(request=request)
-        serializer = ProductSerializer(products, many=True, context={"request":request})
+        serializer = ProductSerializer(products, many=True, context={"request": request})
         return self.get_paginated_response(serializer.data)
 
     def post(self, request):
@@ -41,7 +42,7 @@ class ProductRetrieveUpdateDeleteView(APIView):
         self.check_object_permissions(self.request, product)
         return product
 
-    def get(self,request, pk):
+    def get(self, request, pk):
         product = self.get_object(pk)
         serializer = ProductSerializer(product)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -58,4 +59,3 @@ class ProductRetrieveUpdateDeleteView(APIView):
         product = self.get_object(pk)
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-

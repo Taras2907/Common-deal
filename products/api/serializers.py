@@ -3,7 +3,7 @@ from rest_framework.pagination import LimitOffsetPagination
 
 from products.models import ProductSubcategory, ProductCategory, Product
 
-LimitOffsetPagination
+
 class ProductSerializer(serializers.ModelSerializer):
     manufacturer = serializers.StringRelatedField()
     seller = serializers.StringRelatedField()

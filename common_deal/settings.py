@@ -145,6 +145,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
+# Email config
+
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
@@ -162,6 +164,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 DEFAULT_FROM_EMAIL = "Common_deal@some.com"
+
+
 
 STATIC_URL = '/static/'
 

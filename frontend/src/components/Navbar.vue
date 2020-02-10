@@ -1,15 +1,15 @@
 <template>
     <div class="container-fluid px-0 mt-0 pt-0">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
                     aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">Common Deal</a>
+                <router-link class="navbar-brand" :to="{name:'home'}">Common Deal</router-link>
                 <ul class="navbar-nav mr-4 mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">About<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
@@ -19,12 +19,12 @@
                     </li>
                 </ul>
                 <div class="container-fluid">
-                    <AutoSuggest class="mr-auto"/>
+                    <AutoSuggest/>
                 </div>
-                <div class="container-fluid w-25">
-                    <button class="btn-outline-primary"><i class="fa" style="font-size:24px">&#xf07a;</i></button>
-                    <span class='badge badge-warning ' id='lblCartCount'>  1</span>
-                    <button class="btn-outline-primary">Sign up</button>
+                <div class="container-fluid w-25 ml-auto">
+                    <button class="btn-primary mx-1">Cart</button>
+                    <button class="btn-primary mx-1" @click="redirectToLoginView">Sign Up</button>
+
                 </div>
 
             </div>
@@ -42,6 +42,11 @@
     export default {
         name: "Navbar",
         components: {AutoSuggest},
+        methods:{
+            redirectToLoginView(){
+                this.$router.push("/authentication")
+            }
+        }
     }
 </script>
 
