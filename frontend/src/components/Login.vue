@@ -1,71 +1,73 @@
 <template>
   <div
-          class="container tab-pane fade show active"
-          id="login"
-          role="tabpanel"
-          aria-labelledby="pills-home-tab"
+    class="container tab-pane fade show active"
+    id="login"
+    role="tabpanel"
+    aria-labelledby="pills-home-tab"
   >
     <form @submit.prevent="loginUser">
       <div class="form-group">
         <label for="loginUserEmail">Enter Username</label>
         <input
-                v-model="username"
-                name="userEmail"
-                type="text"
-                class="form-control"
-                id="loginUserEmail"
-                aria-describedby="loginHelp"
-                placeholder="Username"
-                required
+          v-model="username"
+          name="userEmail"
+          type="text"
+          class="form-control"
+          id="loginUserEmail"
+          aria-describedby="loginHelp"
+          placeholder="Username"
+          required
         />
         <div v-if="errors">
           <p class="text-left mt-2">
             <small
-                    class="text-danger row ml-1"
-                    v-for="(message, index) in errors"
-                    :key="index"
-            >{{ message }}
-            </small
-            >
+              class="text-danger row ml-1"
+              v-for="(message, index) in errors"
+              :key="index"
+              >{{ message }}
+            </small>
           </p>
         </div>
         <small v-else id="loginHelp" class="form-text text-muted"
-        >Fill the form and press submit to create account
+          >Fill the form and press submit to create account
         </small>
       </div>
       <div class="form-group">
         <div class="row-no-gutters px-0 mx-0 text-left">
-          <label class="col-sm-6 text-left pl-2" for="loginPassword">Password</label>
-          <router-link class="col-sm-6 text-left pl-2"
-                       :to="{name: 'password-recover'}"
-          >Forgot password?
+          <label class="col-sm-6 text-left pl-2" for="loginPassword"
+            >Password</label
+          >
+          <router-link
+            class="col-sm-6 text-left pl-2"
+            :to="{ name: 'password-recover' }"
+            >Forgot password?
           </router-link>
         </div>
         <input
-                v-model="password"
-                name="password"
-                type="password"
-                class="form-control"
-                id="loginPassword"
-                placeholder="Password"
-                autocomplete="off"
-                required
+          v-model="password"
+          name="password"
+          type="password"
+          class="form-control"
+          id="loginPassword"
+          placeholder="Password"
+          autocomplete="off"
+          required
         />
       </div>
       <button
-              :disabled="fieldsAreEmpty"
-              type="submit"
-              class="btn btn-primary"
-              id="loginSubmit">
+        :disabled="fieldsAreEmpty"
+        type="submit"
+        class="btn btn-primary"
+        id="loginSubmit"
+      >
         Submit
       </button>
     </form>
-
   </div>
 </template>
 
 <script>
-  /* eslint-disable */
+/* eslint-disable */
   import {apiService} from "../common/apiService";
 
   export default {

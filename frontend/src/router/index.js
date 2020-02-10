@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+// import Home from "../views/Home.vue";
 import NotFound from "../views/NotFound.vue";
 import Authenticaction from "../views/Authentication.vue";
 import PasswordRecover from "../views/PasswordRecover.vue";
 import PasswordRecoverConfirm from "../views/PasswordRecoverConfirm.vue";
+import Index from "../views/Index";
 
 Vue.use(VueRouter);
 
@@ -12,7 +13,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Index
   },
   {
     path: "/authentication",
@@ -33,7 +34,7 @@ const routes = [
     path: "/password/confirm/:uid/:token",
     name: "password-recover-confirm",
     component: PasswordRecoverConfirm,
-    props: true,
+    props: true
   }
 ];
 
