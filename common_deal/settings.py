@@ -95,14 +95,24 @@ WSGI_APPLICATION = 'common_deal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get("DATABASE_NAME"),
+#         'USER': os.environ.get("USER_NAME"),
+#         'PASSWORD': os.environ.get("USER_PASSWORD"),
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("DATABASE_NAME"),
-        'USER': os.environ.get("USER_NAME"),
-        'PASSWORD': os.environ.get("USER_PASSWORD"),
-        'HOST': 'localhost',
+        'NAME': "postgres",
+        'USER': "katrychtaras@cornel-server",
+        'PASSWORD': "Katamaran29",
+        'HOST': 'cornel-server.postgres.database.azure.com',
         'PORT': '',
     }
 }
@@ -167,8 +177,12 @@ DEFAULT_FROM_EMAIL = "Common_deal@some.com"
 
 
 
+STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

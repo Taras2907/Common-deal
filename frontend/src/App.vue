@@ -1,18 +1,21 @@
 <template>
-  <v-app>
-    <v-content>
-        <router-view></router-view>
-    </v-content>
-  </v-app>
+    <v-app>
+        <v-content>
+            <Home></Home>
+            <router-view></router-view>
+        </v-content>
+    </v-app>
 </template>
 
 <script>
 
-export default {
-  name: "App",
+    import Home from "./views/Home";
 
-  data: () => ({
-    //
-  })
-};
+    export default {
+        name: "App",
+        components: {Home},
+        data: () => ({
+            //
+        })
+    };
 </script>
