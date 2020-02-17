@@ -175,7 +175,7 @@ EMAIL_USE_TLS = True
 
 DEFAULT_FROM_EMAIL = "Common_deal@some.com"
 
-STATIC_ROOT = "../common_deal/static"
+STATIC_ROOT = "D:/home/site/wwwroot/static"
 STATIC_URL = '/static/'
 
 
