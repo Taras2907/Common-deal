@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_azure_demo.urls'
+ROOT_URLCONF = 'common_deal.urls'
 
 TEMPLATES = [
     {
@@ -90,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_azure_demo.wsgi.application'
+WSGI_APPLICATION = 'common_deal.wsgi.application'
 
 
 # Database
