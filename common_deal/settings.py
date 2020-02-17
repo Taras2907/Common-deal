@@ -95,12 +95,7 @@ WSGI_APPLICATION = 'common_deal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-dbname='{your_database}'
-user='{your_username}' 
-host='{host_name}' 
-password='{your_password}' 
-port='5432' 
-sslmode='true'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
