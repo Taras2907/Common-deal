@@ -176,6 +176,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Common_deal@some.com"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+print(os.path.join(BASE_DIR, 'static'))
 STATIC_URL = '/static/'
 
 
