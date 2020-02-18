@@ -26,7 +26,7 @@ urlpatterns = [
     path('api/', include('products.api.urls')),
 
     re_path(r'^.*$', TemplateView.as_view(template_name=
-                                          'application-production.html' if not settings.DEBUG else 'application.html'), name="entry-point"),
+                                          'application-production.html'), name="entry-point"),
 
     # path('offers/', include('offers.urls')),
     # path('products/', include('products.urls')),
