@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cli9&+u+gcxia)5#4ka^8gu8_wf(mud42r_@9bjtlla4zpud46'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -175,8 +175,11 @@ EMAIL_USE_TLS = True
 
 DEFAULT_FROM_EMAIL = "Common_deal@some.com"
 
-STATIC_ROOT = "../common_deal/static"
+# STATIC_ROOT = "../common_deal/static"
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/dist"),
+]
 
 
 REST_FRAMEWORK = {

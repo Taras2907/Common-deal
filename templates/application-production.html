@@ -1,4 +1,4 @@
-{% load render_bundle from webpack_loader %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" >
 <head>
@@ -31,6 +31,10 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 
+    <!--Build-->
+
+    <link rel="stylesheet"  type="text/css" href="{% static 'bundle.css' %}">
+    <script type="text/javascript" src="{% static 'bundle.js' %}"></script>
 </head>
 <body>
 
@@ -38,33 +42,10 @@
 
 
     <div id="app">
-    <h1 style="text-align: center; margin-top: 10%" id="message"></h1>
+    <h1 style="text-align: center; margin-top: 10%" id="message">production</h1>
     </div>
-    <script>
-        function setTimer() {
-                let countDownDate = new Date("Feb 17, 2020 18:02:25").getTime();
-                let x = setInterval(function () {
-                    let now = new Date().getTime();
 
-                    let distance = countDownDate - now;
 
-                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    let h1 = document.getElementById("message");
-                    h1.innerText = "Буду вдома за: " + days + "d " + hours + "h "
-                        + minutes + "m " + seconds + "s ";
-                    console.log(h1.innerText);
-                    if (distance < 0) {
-                        clearInterval(x);
-                        h1.innerText = "EXPIRED";
-                    }
-
-                }, 1000);}
-                setTimer();
-    </script>
-{% render_bundle 'app' %}
 
 </body>
 </html>

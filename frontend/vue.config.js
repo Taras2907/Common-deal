@@ -27,18 +27,18 @@ module.exports = {
             .port(8080)
             .hotOnly(true)
             .watchOptions({poll: 1000})
-            .https(false)
+            .https(true)
             .disableHostCheck(true)
             .headers({"Access-Control-Allow-Origin": ["\*"]})
 
     },
 
     // uncomment before executing 'npm run build'
-    // css: {
-    //     extract: {
-    //       filename: 'bundle.css',
-    //       chunkFilename: 'bundle.css',
-    //     },
-    // }
+    css: {
+        extract: {
+          filename: 'bundle.css',
+          chunkFilename: 'bundle.css',
+        },
+    }
 
 };
