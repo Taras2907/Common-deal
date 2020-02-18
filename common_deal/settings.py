@@ -178,7 +178,7 @@ DEFAULT_FROM_EMAIL = "Common_deal@some.com"
 # STATIC_ROOT = "../common_deal/static"
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend/dist"),
+    "frontend/dist",
 ]
 
 
