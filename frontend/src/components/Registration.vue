@@ -179,6 +179,7 @@
         apiService(endpoint, 'POST', data)
             .then(response => response.json())
             .then(responseData => {
+              console.log(responseData);
               this.isRegistering = false;
               if (!responseData.key) {
                 this.applyErrors(responseData)

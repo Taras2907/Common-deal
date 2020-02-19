@@ -159,7 +159,8 @@ SITE_ID = 1
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+# SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+SENDGRID_API_KEY = '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'
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 
