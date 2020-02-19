@@ -96,26 +96,26 @@ WSGI_APPLICATION = 'common_deal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 #
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': os.environ.get("DATABASE_NAME"),
-#         'USER': os.environ.get("USER_NAME"),
-#         'PASSWORD': os.environ.get("USER_PASSWORD"),
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "postgres",
-        'USER': "katrychtaras@cornel-server",
-        'PASSWORD': "Katamaran29",
-        'HOST': 'cornel-server.postgres.database.azure.com',
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("USER_NAME"),
+        'PASSWORD': os.environ.get("USER_PASSWORD"),
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': "postgres",
+#         'USER': "katrychtaras@cornel-server",
+#         'PASSWORD': "Katamaran29",
+#         'HOST': 'cornel-server.postgres.database.azure.com',
+#         'PORT': '',
+#     }
+# }
 
 
 
