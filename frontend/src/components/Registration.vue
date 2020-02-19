@@ -169,7 +169,7 @@
     },
     methods: {
       registerUser() {
-        let endpoint = `${host}/api/rest-auth/registration/`;
+        let endpoint = `${this.host}/api/rest-auth/registration/`;
         let data = {
           username: this.username,
           password1: this.password1,
@@ -212,7 +212,7 @@
                 && this.password1 !== "" && (this.password2 !== "" && this.password2 !== null));
       },
       checkUserNameExists(username) {
-        let endpoint = '${host}/api/rest-auth/user/name/';
+        let endpoint = `${this.host}/api/rest-auth/user/name/`;
         apiService(endpoint, "POST", {username: username})
             .then(response => response.json())
             .then(json_response => {
@@ -226,7 +226,7 @@
 
       },
       checkEmailExists(email) {
-        let endpoint = '${host}/api/rest-auth/user/email/';
+        let endpoint = `${this.host}/api/rest-auth/user/email/`;
         apiService(endpoint, "POST", {email: email})
             .then(response => response.json())
             .then(json_response => {
