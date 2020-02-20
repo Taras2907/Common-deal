@@ -7,6 +7,7 @@
             <v-col :cols="4">
                 <v-img max-height="540"
                        max-width="540"
+                       :lazy-src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${currentImage}`"
                        :src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${currentImage}`"></v-img>
                 <v-container fluid>
                     <p>{{this.shortDescription}}</p>
@@ -21,7 +22,7 @@
                                 width="670"
                         >
                             <h3>Time to end of a deal: </h3>
-                            <h3 >{{this.expirationDate}}</h3>
+                            <h3>{{this.expirationDate}}</h3>
                         </v-card>
                     </v-row>
                 </v-container>
@@ -41,11 +42,15 @@
                                 </v-col>
                                 <v-col :cols="4">
 
-                                    <v-btn class="button" @click="isSubscribed = ! isSubscribed" x-large color="success"
+                                    <v-btn class="button" @click="toggleModal" x-large color="success"
                                            dark>
                                         <p v-if="isSubscribed">Unsubscribe</p>
                                         <p v-else>Subscribe</p>
                                     </v-btn>
+                                    <Dialog :dialog="dialog"
+                                            @close-modal="toggleModal"
+                                            @subscribe="subscribeUser"
+                                    ></Dialog>
 
 
                                 </v-col>
@@ -72,16 +77,27 @@
                 </v-container>
             </v-col>
         </v-row>
+        <div class="text-center">
+            <v-overlay :value="overlay">
+                <v-progress-circular
+                        indeterminate
+                        color="primary"
+                ></v-progress-circular>
+            </v-overlay>
+
+        </div>
+
     </v-container>
 </template>
 
 <script>
     /* eslint-disable */
     import ListImageComponent from "./ListImageComponent";
+    import Dialog from "./Dialog";
 
     export default {
         name: "Description",
-        components: {ListImageComponent},
+        components: {Dialog, ListImageComponent},
         props: {
             product: {
                 type: Object,
@@ -101,12 +117,33 @@
                 isSubscribed: false,
                 isLiked: true,
                 currentImage: "asus2.jpeg",
+                dialog: false,
+                overlay: false,
 
             }
         },
         methods: {
             changeImage(image) {
                 this.currentImage = image
+            },
+            toggleModal() {
+                if (this.isSubscribed) {
+                    this.isSubscribed = false
+                } else {
+                    this.dialog = !this.dialog;
+                }
+
+            },
+            subscribeUser() {
+                this.toggleModal();
+                this.overlay = true;
+                setTimeout(()=>{
+                        console.log(this.overlay);
+                        this.overlay = false;
+                        this.isSubscribed = true;
+
+                    }, 4000);
+
             },
 
         },
