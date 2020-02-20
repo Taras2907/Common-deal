@@ -3,13 +3,15 @@
         clipped-left
         color="#FFC107"
         flat>
-        <v-img
+        <router-link :to="{name:'home'}">
+            <v-img
           class="m-2"
           src="@/assets/logo.png"
           max-width="60"
           max-height="60"
           contain>
         </v-img>
+        </router-link>
 
         <v-spacer></v-spacer>
 

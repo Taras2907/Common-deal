@@ -7,7 +7,7 @@
             <v-col :cols="4">
                 <v-img max-height="540"
                        max-width="540"
-                       :src="currentImage"></v-img>
+                       :src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${currentImage}`"></v-img>
                 <v-container fluid>
                     <p>{{this.shortDescription}}</p>
                 </v-container>
@@ -21,7 +21,7 @@
                                 width="670"
                         >
                             <h3>Time to end of a deal: </h3>
-                            <h2>{{timeLeft}}</h2>
+                            <h3 >{{this.expirationDate}}</h3>
                         </v-card>
                     </v-row>
                 </v-container>
@@ -90,14 +90,17 @@
             shortDescription: {
                 type: String,
                 required: true,
+            },
+            expirationDate: {
+                type: String,
+                required: true,
             }
         },
         data() {
             return {
                 isSubscribed: false,
                 isLiked: true,
-                timeLeft: "329d 23h 36m 48s",
-                currentImage: 'https://i2.rozetka.ua/goods/13680230/copy_asus_90nr01l3_m02600_5d67deff8ce7c_images_13680230029.jpg',
+                currentImage: "asus2.jpeg",
 
             }
         },
@@ -105,26 +108,7 @@
             changeImage(image) {
                 this.currentImage = image
             },
-            setTimer() {
-                let countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
-                let x = setInterval(() => {
-                    let now = new Date().getTime();
 
-                    let distance = countDownDate - now;
-
-                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    this.timeLeft = days + "d " + hours + "h "
-                        + minutes + "m " + seconds + "s ";
-                    if (distance < 0) {
-                        clearInterval(x);
-                        this.timeLeft = "EXPIRED";
-                    }
-
-                }, 1000);
-            }
         },
     }
 </script>
