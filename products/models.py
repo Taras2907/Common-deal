@@ -12,6 +12,7 @@ class Product(models.Model):
     price = models.FloatField()
     attributes = JSONField(blank=True, null=True, default=dict)
     product_subcategory = models.ForeignKey('ProductSubcategory', on_delete=models.DO_NOTHING)
+    expiration_date = models.DateTimeField()
 
     def __str__(self):
         return self.name

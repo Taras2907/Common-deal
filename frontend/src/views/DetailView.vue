@@ -1,7 +1,7 @@
 <template>
     <v-card color="basil">
         <v-card-title class="text-center justify-center py-6">
-            <h3 class="font-weight-bold display-3 basil--text">{{this.product.name}}</h3>
+            <h3 class="font-weight-bold basil--text">{{this.product.name}}</h3>
         </v-card-title>
 
         <v-tabs
@@ -24,7 +24,10 @@
                         color="basil"
                         flat
                 >
-                    <Description v-if="product != null" :product="product" :shortDescription="shortDescription"></Description>
+                    <Description v-if="product != null" :product="product"
+                                 :shortDescription="shortDescription"
+                                 :expirationDate="expirationDate"
+                    ></Description>
                 </v-card>
             </v-tab-item>
             <v-tab-item :key="2">
@@ -140,6 +143,7 @@
                 tab: null,
                 product: {},
                 shortDescription: "",
+                expirationDate: "",
                 items: [
                     {
                         id: 1,
@@ -167,16 +171,37 @@
                     .then(response => response.json())
                     .then(json_response => {
                         this.product = json_response;
+                        this.setTimer(json_response.expiration_date);
                         this.createShortDescription();
                     })
             },
             createShortDescription(){
                 let description = "";
                 for (let [key, value] of Object.entries(this.product.attributes) ){
-                    description += key + "/" + value + "/";
+                    description += key + "-" + value + "/";
                 }
                 this.shortDescription = description
             },
+            setTimer(date) {
+                let countDownDate = new Date(date).getTime();
+                let x = setInterval(() => {
+                    let now = new Date().getTime();
+
+                    let distance = countDownDate - now;
+
+                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    this.expirationDate = days + "d " + hours + "h "
+                        + minutes + "m " + seconds + "s ";
+                    if (distance < 0) {
+                        clearInterval(x);
+                        this.expirationDate = "EXPIRED";
+                    }
+
+                }, 1000);
+            }
         },
         created() {
             this.getProductData()

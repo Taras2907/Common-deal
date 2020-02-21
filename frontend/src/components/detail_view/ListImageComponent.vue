@@ -7,11 +7,15 @@
                         :key="i"
                 >
                     <v-list-item-content>
-                        <v-img max-height="150"
-                               max-width="150"
+                        <v-card flat tile class="d-flex">
+                            <v-img contain
+                                   class="grey lighten-2"
+                                   aspect-ratio="1"
+                                   @click="triggerChangeMainImage(item)"
+                                   :lazy-src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${item}`"
+                                   :src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${item}`"></v-img>
+                        </v-card>
 
-                               @click="triggerChangeMainImage(item)"
-                               :src="item"></v-img>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>
@@ -25,16 +29,17 @@
         data() {
             return {
                 items: [
-                    "https://i1.rozetka.ua/goods/13680232/copy_asus_90nr01l3_m02600_5d67deff8ce7c_images_13680232057.jpg",
-                    "https://i1.rozetka.ua/goods/13680234/copy_asus_90nr01l3_m02600_5d67deff8ce7c_images_13680234793.jpg",
-                    "https://i2.rozetka.ua/goods/13680377/asus_90nr01l3_m02610_images_13680377623.jpg",
+                    "asus1.jpeg",
+                    "asus2.jpeg",
+                    "asus3.jpg",
+                    "asus4.jpg",
                 ],
                 item: null,
                 isSelected: null,
             }
         },
-        methods:{
-            triggerChangeMainImage(image){
+        methods: {
+            triggerChangeMainImage(image) {
                 this.$emit('change-image', image);
             }
         }
