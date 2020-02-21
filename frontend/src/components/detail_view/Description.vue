@@ -81,7 +81,7 @@
             <v-overlay :value="overlay">
                 <v-progress-circular
                         indeterminate
-                        color="primary"
+                        color="amber"
                 ></v-progress-circular>
             </v-overlay>
 

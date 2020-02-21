@@ -93,18 +93,18 @@
         },
         data() {
             return {
-                items: ['Courier', 'Post Office', 'Pick up at Store Location'],
-                delivery: "Courier",
                 cardNumber: "",
                 cardRules: [
                     c => !!c || 'Card number is required',
                     c => /^[0-9]*$/.test(c) || 'Only digits required',
                     c => (c && c.length === 16) || 'Card number must be 16 characters',
                 ],
+
                 fullName: "",
                 fullNameRules: [
                     n => !!n || 'Full name number is required',
                 ],
+
                 cvcCode: "",
                 cvcRules: [
                     c => !!c || "CVC code is required",

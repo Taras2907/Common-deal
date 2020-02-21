@@ -1,264 +1,244 @@
 <template>
-  <div
-    class="tab-pane fade"
-    id="registration"
-    role="tabpanel"
-    aria-labelledby="pills-profile-tab"
-  >
-    <div class="container">
-      <form @submit.prevent="registerUser">
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label for="registerName">Username</label>
-              <input
-                @blur="validateUsername(username)"
-                v-model="username"
-                name="username"
-                type="text"
-                class="form-control"
-                id="registerName"
-                aria-describedby="loginHelp"
-                placeholder="Enter name"
-                required
-              />
+    <v-row justify="center" class="mb-2">
+        <v-col cols="12" sm="10" md="8" lg="10">
+            <v-form ref="form"
+                    v-model="valid"
+                    :lazy-validation="false">
+                <v-card>
+                    <v-card-text>
 
-              <div v-if="usernameErrors">
-                <p class="text-left mt-2">
-                  <small
-                    class="text-danger row ml-1"
-                    v-for="(message, index) in usernameErrors"
-                    :key="index"
-                    >{{ message }}
-                  </small>
-                </p>
-              </div>
-              <small v-else id="registerHelp" class="form-text text-muted"
-                >Fill the form and press submit to create account
-              </small>
-            </div>
+                        <v-col cols="12" sm="12" lg="12">
+                            <v-text-field
+                                    v-model="username"
+                                    @input="usernameErrors = null"
+                                    @blur="checkUserNameExists"
+                                    :error-messages="usernameErrors"
+                                    :loading="usernameChecking"
+                                    :rules="usernameRules"
+                                    label="Username"
+                                    hint="Username should be at least 5 characters long and contain only letters and digits"
+                                    persistent-hint
+                                    required
+                            ></v-text-field>
+                        </v-col>
 
-            <div class="form-group">
-              <label for="registerPassword">Password</label>
-              <input
-                @blur="validatePassword(password1)"
-                v-model="password1"
-                name="password1"
-                type="password"
-                class="form-control"
-                id="registerPassword"
-                placeholder="Password"
-                autocomplete="off"
-                required
-              />
-              <p class="text-left mt-2">
-                <small
-                  class="text-danger row ml-1"
-                  v-for="(message, index) in passwordErrors"
-                  :key="index"
-                  >{{ message }}
-                </small>
-              </p>
-            </div>
+                        <v-col cols="12" sm="12" lg="12">
+                            <v-text-field
+                                    v-model="password1"
+                                    :rules="passwordRules"
+                                    label="Password"
+                                    hint="Eight characters sequence with at least 1 capital letter and 1 digit"
+                                    persistent-hint
+                                    required
+                                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :type="show1 ? 'text' : 'password'"
+                                    counter
+                                    loading
+                                    @click:append="show1 = !show1"
 
-            <div class="form-group">
-              <label for="passwordConfirmation">Confirm Password</label>
-              <input
-                @blur="checkPasswords"
-                v-model="password2"
-                name="password2"
-                type="password"
-                class="form-control"
-                id="passwordConfirmation"
-                placeholder="Confirm Password"
-                autocomplete="off"
-                required
-              />
-              <p v-if="confirmPasswordError" class="text-left mt-2">
-                <small class="text-danger row ml-1"
-                  >Password and confirm password does not match
-                </small>
-              </p>
-            </div>
+                            >
+                                <template v-slot:progress>
+                                    <v-progress-linear
+                                            :value="progress"
+                                            :color="color"
+                                            absolute
+                                            height="2"
+                                    ></v-progress-linear>
+                                </template>
+                            </v-text-field>
+                        </v-col>
 
-            <div class="form-group">
-              <label for="registerEmail">Email</label>
-              <input
-                @blur="checkEmailExists(email)"
-                v-model="email"
-                name="email"
-                type="email"
-                class="form-control"
-                id="registerEmail"
-                placeholder="Email"
-                required
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              />
-              <p class="text-left mt-2">
-                <small
-                  class="text-danger row ml-1"
-                  v-for="(message, index) in emailErrors"
-                  :key="index"
-                  >{{ message }}
-                </small>
-              </p>
-            </div>
+                        <v-col cols="12" sm="12" lg="12">
+                            <v-text-field
+                                    v-model="password2"
+                                    :rules="password2Rules"
+                                    label="Confirm password"
+                                    hint="Repeat your password"
+                                    persistent-hint
 
-            <button
-              v-if="isRegistering"
-              class="btn btn-primary"
-              type="button"
-              disabled
-            >
-              <span
-                class="spinner-grow spinner-grow-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              Loading...
-            </button>
-            <button
-              v-else
-              :disabled="thereAreErrors || fieldsAreEmpty"
-              type="submit"
-              class="btn btn-primary"
-              id="registerSubmit"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+                                    required
+                                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :type="show2 ? 'text' : 'password'"
+                                    counter
+                                    @click:append="show2 = !show2"
+                            ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="12" lg="12">
+                            <v-text-field
+                                    @blur="checkEmailExists"
+                                    @input="emailErrors = null"
+                                    :error-messages="emailErrors"
+                                    v-model="email"
+                                    :rules="emailRules"
+                                    label="Email"
+                                    hint="Enter your email"
+                                    persistent-hint
+                                    required
+                                    :loading="emailChecking"
+
+                            ></v-text-field>
+                        </v-col>
+
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-btn class="w-100 primary" color="white" :disabled="!valid" text @click="validate">Register
+                        </v-btn>
+                    </v-card-actions>
+
+                </v-card>
+            </v-form>
+        </v-col>
+    </v-row>
+
 </template>
 
 <script>
-/* eslint-disable */
-  import {apiService} from "../common/apiService";
+    /* eslint-disable */
+    import {apiService} from "../common/apiService";
 
-  export default {
-    name: "RegistrationComponent",
-    data() {
-      return {
-        username: "",
-        password1: "",
-        password2: "",
-        email: null,
-        isRegistering: false,
-        usernameErrors: null,
-        passwordErrors: null,
-        confirmPasswordError: false,
-        emailErrors: null,
-      }
-    },
-    computed: {
-      thereAreErrors() {
-        return (this.usernameErrors !== null &&
-            this.passwordErrors !== null &&
-            this.emailErrors !== null &&
-            this.confirmPasswordError !== false);
-      },
-      fieldsAreEmpty() {
-        return this.username === null || this.username === "" ||
-            this.password1 === null || this.password1 === "" ||
-            this.password2 === null || this.password2 === "" ||
-            this.email === null || this.email === "";
-      },
-    },
-    methods: {
-      registerUser() {
-        let endpoint = `/api/rest-auth/registration/`;
-        let data = {
-          username: this.username,
-          password1: this.password1,
-          password2: this.password2,
-          email: this.email
-        };
-        this.isRegistering = true;
-        apiService(endpoint, 'POST', data)
-            .then(response => response.json())
-            .then(responseData => {
-              this.isRegistering = false;
-              if (!responseData.key) {
-                this.applyErrors(responseData)
-              }else{
-                this.username = '';
-                this.password1 = '';
-                this.password2 = '';
-                this.email = '';
-                this.$emit('switch-tab');
-                location.reload();
-              }
-            })
-            .catch(error => console.log(error))
-      },
-      applyErrors(responseData) {
-        if (responseData.username) {
-          this.usernameErrors = responseData.username
-        }
-        if (responseData.email) {
-          this.emailErrors = responseData.email
-        }
-        if (responseData.password1) {
-          this.passwordErrors = responseData.password1
-        }
-      },
-      checkPasswords() {
-        this.confirmPasswordError =
-            ((this.password1 !== this.password2)
-                && this.password1 !== "" && (this.password2 !== "" && this.password2 !== null));
-      },
-      checkUserNameExists(username) {
-        let endpoint = '/api/rest-auth/user/name/';
-        apiService(endpoint, "POST", {username: username})
-            .then(response => response.json())
-            .then(json_response => {
-              if (json_response.message) {
-                this.usernameErrors = [json_response.message]
-              } else {
-                this.usernameErrors = null;
-              }
-            })
-            .catch(error => console.log(error))
+    export default {
+        name: "RegistrationComponent",
+        data() {
+            return {
+                username: "",
+                usernameRules: [
+                    name => !!name || "Username is required",
+                    name => (name && name.length > 4) || "Username should be not less than 5 characters",
+                    name => /^([a-z]|[A-Z]|[0-9])*$/.test(name) || "Username should contain only letters and digits", // . _ -
+                ],
+                usernameChecking: false,
 
-      },
-      checkEmailExists(email) {
-        let endpoint = '/api/rest-auth/user/email/';
-        apiService(endpoint, "POST", {email: email})
-            .then(response => response.json())
-            .then(json_response => {
-              if (json_response.response.exists) {
-                this.emailErrors = [json_response.response.message]
-              } else {
-                this.emailErrors = null
-              }
-            })
-            .catch(error => console.log(error))
-      },
-      validateUsername(username) {
-        if ((username.length < 4 || username.length > 15) && username !== "") {
-          this.usernameErrors = ["Username should be between 5 and 15 symbols "]
-        } else {
-          this.usernameErrors = null;
-          this.checkUserNameExists(username)
+                password1: "",
+                passwordRules: [
+                    password => !!password || "Password is required",
+                    password => (password && (password.length > 7 && password.length < 16)) || "Password should be not less than 8 characters and not bigger than 15",
+                    password => /^([a-z]|[A-Z]|[0-9])*$/.test(password) || "Password should contain only letters and digits",
+
+                ],
+                show1: false,
+
+                password2: "",
+                password2Rules: [
+                    password => (password && password === this.password1) || "Password are not equal",
+                ],
+                show2: false,
+
+                email: null,
+                emailRules: [
+                    email => !!email || "email is required",
+                    email => /.+@.+\..+/.test(email) || 'E-mail must be valid',
+                ],
+                isRegistering: false,
+                usernameErrors: null,
+                passwordErrors: null,
+                emailErrors: null,
+                emailChecking: false,
+                valid: false,
+            }
+        },
+        computed: {
+            progress() {
+                return Math.min(100, this.password1.length * 12.5) // 12.5 * 8 chars = 100% progress
+            },
+            color() {
+                let hasOneCapitalLetter = p => /[A-Z]/.test(p) ? 1 : 0;
+                let hasOneDigit = p => /[0-9]/.test(p) ? 1 : 0;
+                let has8charsLen = p => p.length > 8 ? 1 : 0;
+                let theColor = hasOneCapitalLetter(this.password1) +
+                    hasOneDigit(this.password1) +
+                    has8charsLen(this.password1);
+                let colors = {0: 'error', 1: 'error', 2: 'warning', 3: 'success'};
+                return colors[theColor]
+            },
+        },
+        methods: {
+            registerUser() {
+                let endpoint = `/api/rest-auth/registration/`;
+                let data = {
+                    username: this.username,
+                    password1: this.password1,
+                    password2: this.password2,
+                    email: this.email
+                };
+                this.isRegistering = true;
+                apiService(endpoint, 'POST', data)
+                    .then(response => response.json())
+                    .then(responseData => {
+                        this.isRegistering = false;
+                        if (!responseData.key) {
+                            this.applyErrors(responseData)
+                        } else {
+                            this.username = '';
+                            this.password1 = '';
+                            this.password2 = '';
+                            this.email = '';
+                            this.$emit('switch-tab');
+                            location.reload();
+                        }
+                    })
+                    .catch(error => console.log(error))
+            }
+            ,
+            applyErrors(responseData) {
+                if (responseData.username) {
+                    this.usernameErrors = responseData.username
+                }
+                if (responseData.email) {
+                    this.emailErrors = responseData.email
+                }
+                if (responseData.password1) {
+                    this.passwordErrors = responseData.password1
+                }
+            },
+            checkUserNameExists() {
+                let endpoint = '/api/rest-auth/user/name/';
+                this.usernameChecking = true;
+                apiService(endpoint, "POST", {username: this.username})
+                    .then(response => response.json())
+                    .then(json_response => {
+                        setTimeout(() => {
+                            this.usernameChecking = false;
+                            if (json_response.message) {
+                                this.usernameErrors = [json_response.message]
+                            } else {
+                                this.usernameErrors = null;
+                            }
+
+                        }, 1000)
+                    })
+                    .catch(error => console.log(error))
+
+            }
+            ,
+            checkEmailExists() {
+                let endpoint = '/api/rest-auth/user/email/';
+                this.emailChecking = true;
+                apiService(endpoint, "POST", {email: this.email})
+                    .then(response => response.json())
+                    .then(json_response => {
+                        setTimeout(() => {
+                            this.emailChecking = false;
+                            if (json_response.response.exists) {
+                                this.emailErrors = [json_response.response.message]
+                            } else {
+                                this.emailErrors = null
+                            }
+
+                        }, 1500);
+
+
+                    })
+                    .catch(error => console.log(error))
+            }
+            ,
+            validate() {
+                if (this.$refs.form.validate()) {
+                    this.registerUser()
+                }
+            }
         }
-      },
-      validatePassword(password) {
-        this.checkPasswords();
-        if ((password.length < 7 || password.length > 15) && password !== "") {
-          this.passwordErrors = ["Password should be between 8 and 15 symbols"]
-        } else {
-          this.passwordErrors = null;
-          if (!isNaN(password) && password !== "") {
-            this.passwordErrors = ["Password should not be entirely numeric"];
-          } else {
-            this.passwordErrors = null;
-          }
-        }
-      }
     }
-  }
 </script>
 
 <style scoped>
