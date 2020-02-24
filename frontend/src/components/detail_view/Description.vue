@@ -1,82 +1,76 @@
 <template>
-    <v-container fluid>
-        <v-row>
-            <v-col :cols="2">
-                <ListImageComponent @change-image="changeImage"></ListImageComponent>
-            </v-col>
-            <v-col :cols="4">
-                <v-img max-height="540"
-                       max-width="540"
-                       :lazy-src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${currentImage}`"
-                       :src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${currentImage}`"></v-img>
-                <v-container fluid>
-                    <p>{{this.shortDescription}}</p>
-                </v-container>
-            </v-col>
-            <v-col class="productInfo" :cols="6">
-                <v-container fluid>
-                    <v-row class="priceInfo">
-                        <v-card class="cardInfo"
-                                :elevation="5"
-                                height="80"
-                                width="670"
-                        >
-                            <h3>Time to end of a deal: </h3>
-                            <h3>{{this.expirationDate}}</h3>
-                        </v-card>
+    <v-row class="mx-0 px-0">
+        <v-col cols="2" class="pt-0 pr-0 pl-6">
+            <ListImageComponent @change-image="changeImage"></ListImageComponent>
+        </v-col>
+        <v-col cols="4">
+            <v-img max-height="540"
+                   max-width="540"
+                   :lazy-src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${currentImage}`"
+                   :src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${currentImage}`"></v-img>
+            <v-container fluid>
+                <p>{{this.shortDescription}}</p>
+            </v-container>
+        </v-col>
+        <v-col class="productInfo" cols="6">
+            <v-card class="mb-3"
+                    :elevation="5"
+                    height="80"
+                    width="670"
+            >
+                <v-card-text>
+                    <v-container fluid class="my-0 py-0">
+                        <p class="headers pb-lg-2 pb-sm-0">Time to end of a deal: </p>
+                        <p class="headers">{{this.expirationDate}}</p>
+                    </v-container>
+
+                </v-card-text>
+            </v-card>
+                <v-card class="cardInfo"
+                        :elevation="5"
+                        height="250"
+                        width="670"
+                >
+
+                    <v-row class="row mx-1 px-0">
+                        <v-col cols="4" class="px-1">
+                            <v-card class="text">
+                                <p>${{this.product.price}}</p>
+                            </v-card>
+                        </v-col>
+                        <v-col cols="4" class="px-1">
+
+                            <v-btn class="button p-0"
+                                   @click="toggleModal"
+                                   x-large color="success"
+                                   :outlined="isSubscribed"
+                                   dark>
+                                <p v-if="isSubscribed">Unsubscribe</p>
+                                <p v-else>Subscribe</p>
+                            </v-btn>
+                            <Dialog :dialog="dialog"
+                                    @close-modal="toggleModal"
+                                    @subscribe="subscribeUser"
+                            ></Dialog>
+
+
+                        </v-col>
+                        <v-col cols="4" class="px-1">
+                            <v-btn class="button p-0" @click="isLiked = ! isLiked"
+                                   :outlined="isLiked"
+                                   x-large color="success" dark>
+                                <v-icon class="button">mdi-heart</v-icon>
+                            </v-btn>
+
+                        </v-col>
+
                     </v-row>
-                </v-container>
-                <v-container fluid>
-                    <v-row class="priceInfo">
-                        <v-card class="cardInfo"
-                                :elevation="5"
-                                height="250"
-                                width="670"
-                        >
-
-                            <v-row class="row mx-1">
-                                <v-col :cols="4">
-                                    <v-card class="text">
-                                        <p>${{this.product.price}}</p>
-                                    </v-card>
-                                </v-col>
-                                <v-col :cols="4">
-
-                                    <v-btn class="button" @click="toggleModal" x-large color="success"
-                                           dark>
-                                        <p v-if="isSubscribed">Unsubscribe</p>
-                                        <p v-else>Subscribe</p>
-                                    </v-btn>
-                                    <Dialog :dialog="dialog"
-                                            @close-modal="toggleModal"
-                                            @subscribe="subscribeUser"
-                                    ></Dialog>
-
-
-                                </v-col>
-                                <v-col :cols="4">
-                                    <v-btn class="button" @click="isLiked = ! isLiked"
-                                           :outlined="isLiked"
-                                           x-large color="success" dark>
-                                        <v-icon class="button">mdi-heart</v-icon>
-                                    </v-btn>
-
-                                </v-col>
-
-                            </v-row>
-                            <v-divider></v-divider>
-                            <v-row class="mt-6"
-                                   justify="center">
-                                <v-col :cols="8">
-                                    <h2>The seller of this product is {{this.product.seller}}</h2>
-                                </v-col>
-
-                            </v-row>
-                        </v-card>
-                    </v-row>
-                </v-container>
-            </v-col>
-        </v-row>
+                    <v-divider></v-divider>
+                        <v-col cols="12">
+                            <p class="headers">The seller of this product is {{this.product.seller}}</p>
+                        </v-col>
+                </v-card>
+        </v-col>
         <div class="text-center">
             <v-overlay :value="overlay">
                 <v-progress-circular
@@ -86,8 +80,9 @@
             </v-overlay>
 
         </div>
+    </v-row>
 
-    </v-container>
+
 </template>
 
 <script>
@@ -137,12 +132,12 @@
             subscribeUser() {
                 this.toggleModal();
                 this.overlay = true;
-                setTimeout(()=>{
-                        console.log(this.overlay);
-                        this.overlay = false;
-                        this.isSubscribed = true;
+                setTimeout(() => {
+                    console.log(this.overlay);
+                    this.overlay = false;
+                    this.isSubscribed = true;
 
-                    }, 4000);
+                }, 4000);
 
             },
 
@@ -154,28 +149,15 @@
     .productInfo {
         background: #ECEFF1
     }
-
-    .priceInfo {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: auto;
-    }
-
-    .cardInfo {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    h3, h2 {
+    .headers {
+        font-size: 2.5vw;
         text-align: center;
-        font-size: 2vw;
-        max-width: 100%;
-        max-height: 100%;
-
+        font-weight: bold;
+        margin-bottom: 0;
     }
 
     p {
-        font-size: 1vw;
+        font-size: 0.9vw;
     }
 
     .text {
@@ -200,11 +182,6 @@
         max-height: 100%;
         min-width: unset !important;
 
-    }
-
-    .row {
-        max-width: 100%;
-        max-height: 100%;
     }
 
     /*@media screen and (min-width: 601px) {*/

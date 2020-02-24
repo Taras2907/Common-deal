@@ -9,10 +9,11 @@
                 background-color="transparent"
                 color="basil"
                 grow
+                show-arrows
         >
             <v-tab
-                    v-for="item in items"
-                    :key="item.id"
+                   v-for="item in items"
+                   :key="item.id"
             >
                 {{ item.name }}
             </v-tab>
@@ -41,11 +42,11 @@
                                 <v-list-item-content>
                                     <v-list-item-title>
                                         <v-row>
-                                            <v-col :col="1">
+                                            <v-col col="6" sm="6">
                                                 <span class="pl-5">{{key}}</span>
                                             </v-col>
 
-                                            <v-col :col="2">
+                                            <v-col col="6" sm="6">
                                                 <span>{{value}}</span>
                                             </v-col>
                                         </v-row>
@@ -175,9 +176,9 @@
                         this.createShortDescription();
                     })
             },
-            createShortDescription(){
+            createShortDescription() {
                 let description = "";
-                for (let [key, value] of Object.entries(this.product.attributes) ){
+                for (let [key, value] of Object.entries(this.product.attributes)) {
                     description += key + "-" + value + "/";
                 }
                 this.shortDescription = description
