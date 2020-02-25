@@ -27,7 +27,7 @@ SECRET_KEY = 'cli9&+u+gcxia)5#4ka^8gu8_wf(mud42r_@9bjtlla4zpud46'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'common_deal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-#
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -106,6 +106,8 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -155,27 +157,14 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
-# Email config
-
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-
-SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
-
-SENDGRID_SANDBOX_MODE_IN_DEBUG=False
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-
-EMAIL_HOST_USER = 'common_deal_send_emails'
-
+EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-
 EMAIL_PORT = 587
-
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = "Common_deal@some.com"
-
-STATIC_ROOT = "../common_deal/static"
 STATIC_URL = '/static/'
 
 
@@ -193,4 +182,3 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
     }
 }
-
