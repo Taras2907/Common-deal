@@ -31,6 +31,7 @@ parso==0.5.2
 pexpect==4.7.0
 phonenumbers==8.11.0
 pickleshare==0.7.5
+Pillow==7.0.0
 pluggy==0.13.1
 prompt-toolkit==3.0.2
 psycopg2==2.8.4
@@ -42,6 +43,7 @@ pyparsing==2.4.6
 pytest==5.3.2
 pytest-django==3.8.0
 python-dateutil==2.8.1
+python-devtools==2
 python-dotenv==0.10.3
 python-http-client==3.2.1
 python3-openid==3.1.0

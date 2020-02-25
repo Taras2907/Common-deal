@@ -178,5 +178,5 @@ WEBPACK_LOADER = {
 }
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static/images")
-MEDIA_URL = '/media/'
+MEDIA_URL = '/api/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

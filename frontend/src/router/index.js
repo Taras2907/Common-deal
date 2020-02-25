@@ -36,6 +36,11 @@ const routes = [
     name: "password-recover-confirm",
     component: PasswordRecoverConfirm,
     props: true
+  },
+  {
+    path: '/api/media/:mediaid/',
+    name: "api-media",
+    props: true,
   }
 ];
 
