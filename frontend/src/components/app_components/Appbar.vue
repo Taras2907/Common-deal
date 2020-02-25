@@ -13,14 +13,14 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn v-if="!isLogged"
+        <v-btn v-if="!user_logged"
           outlined
           :to="'authentication'"
           absolute
           right>Sign In
         </v-btn>
 
-        <Menu v-if="isLogged"/>
+        <Menu v-if="user_logged"/>
       </v-app-bar>
 </template>
 
@@ -29,14 +29,14 @@
     export default {
         name: "Appbar",
         components: {Menu},
+        mounted() {
+          this.$root.$on('logout-user', () => {this.user_logged = false;})
+          this.$root.$on('login-user', () => {this.user_logged = true;})
+        },
         data() {
             return{
                 username: null,
-            }
-        },
-        computed: {
-            isLogged: function () {
-                return localStorage.username
+                user_logged: !!localStorage.username,
             }
         },
     }

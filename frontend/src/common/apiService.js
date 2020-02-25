@@ -16,7 +16,7 @@ function apiService(endpoint, method, data) {
     body: data !== undefined ? JSON.stringify(data) : null,
     headers: {
       "content-type": "application/json",
-      "X-CSRFTOKEN": CSRF_TOKEN
+      "X-CSRFToken": CSRF_TOKEN
     }
   };
   return (

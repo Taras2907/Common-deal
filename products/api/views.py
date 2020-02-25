@@ -10,7 +10,7 @@ from products.api.serializers import ProductCategorySerializer, ProductSerialize
 
 
 class ProductListCreateView(APIView, LimitOffsetPagination):
-    default_limit = 2
+    default_limit = 8
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self, request):

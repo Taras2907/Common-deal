@@ -27,7 +27,7 @@ export default {
   name: "App",
     components: {Footer, Drawer, Appbar},
     data: () => ({
-    //
+      user_logged: false,
   })
 };
 </script>

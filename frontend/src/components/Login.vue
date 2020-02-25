@@ -98,6 +98,7 @@
               if (!responseData.key) {
                 this.applyErrors(responseData)
               } else {
+                this.$root.$emit('login-user');
                 localStorage.setItem("username", this.username);
                 this.$router.push("/");
               }
