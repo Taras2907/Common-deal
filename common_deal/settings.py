@@ -184,10 +184,10 @@ AZURE_ACCOUNT_NAME = 'frontendcommondeal'
 AZURE_ACCOUNT_KEY = 'Am6+AvjIlMNUfJQL/6u8zlykD591OxOKbssUzIQ3OD6HvYh6cvxtU0SbTUxR4CAWo60+klitxxfbvGFi/ls1CQ=='
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 AZURE_LOCATION = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-AZURE_CONTAINER = "media"
+AZURE_CONTAINER = "static"
 
 STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/static/'
+STATIC_URL = f'https://'
 STATIC_ROOT = "static"
 
 STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
