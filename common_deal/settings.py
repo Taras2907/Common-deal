@@ -160,7 +160,7 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 EMAIL_USE_TLS = True
 
 
-STATIC_ROOT = "https://frontendcommondeal.blob.core.windows.net/%24web/static"
+STATIC_ROOT = "https://common-deal.scm.azurewebsites.net/static/"
 STATIC_URL = '/static/'
 
 REST_SESSION_LOGIN = False
@@ -182,4 +182,4 @@ WEBPACK_LOADER = {
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static/images")
 MEDIA_URL = '/media/'
-MEDIA_ROOT = "https://frontendcommondeal.blob.core.windows.net/%24web/media"
+MEDIA_ROOT = "https://frontendcommondeal.blob.core.windows.net/%24web/media/"
