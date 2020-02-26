@@ -183,8 +183,8 @@ WEBPACK_LOADER = {
 AZURE_ACCOUNT_NAME = 'frontendcommondeal'
 AZURE_ACCOUNT_KEY = 'Am6+AvjIlMNUfJQL/6u8zlykD591OxOKbssUzIQ3OD6HvYh6cvxtU0SbTUxR4CAWo60+klitxxfbvGFi/ls1CQ=='
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-AZURE_LOCATION = "static"
-AZURE_CONTAINER = "static"
+AZURE_LOCATION = "$web"
+AZURE_CONTAINER = "$web"
 
 STATIC_LOCATION = 'static'
 STATIC_URL = f'https://'
