@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-col cols="6" class="p-0">
+        <v-col cols="4" class="p-0">
             <v-select
                     @change="triggerSortOrder(sortOption)"
                     v-model="sortOption"
