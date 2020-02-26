@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
 
     'phonenumber_field',
+    'azure',
 
 ]
 
@@ -150,7 +151,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
-SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+SENDGRID_API_KEY = "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"
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
@@ -159,9 +160,6 @@ EMAIL_PORT = 587
 SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 EMAIL_USE_TLS = True
 
-
-STATIC_ROOT = "../static/"
-STATIC_URL = '/static/'
 
 REST_SESSION_LOGIN = False
 
@@ -180,5 +178,16 @@ WEBPACK_LOADER = {
     }
 }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = "https://frontendcommondeal.blob.core.windows.net/%24web/media/"
+
+AZURE_ACCOUNT_NAME = 'frontendcommondeal'
+AZURE_ACCOUNT_KEY = 'Am6+AvjIlMNUfJQL/6u8zlykD591OxOKbssUzIQ3OD6HvYh6cvxtU0SbTUxR4CAWo60+klitxxfbvGFi/ls1CQ=='
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+AZURE_LOCATION = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+AZURE_CONTAINER = "media"
+
+STATIC_LOCATION = 'static'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+STATIC_ROOT = "static"
+
+STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+DEFAULT_FILE_STORAGE = 'common_deal.custom_azure.AzureMediaStorage'

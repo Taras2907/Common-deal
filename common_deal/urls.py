@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('api/', include('products.api.urls')),
 
-    path('', TemplateView.as_view(template_name='application.html'), name="entry-point"),
+    path('', TemplateView.as_view(template_name='application-production.html'), name="entry-point"),
 
     # path('offers/', include('offers.urls')),
     # path('products/', include('products.urls')),
