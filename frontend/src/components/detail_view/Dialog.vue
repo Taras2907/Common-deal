@@ -74,7 +74,7 @@
                 </v-form>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn  color="blue darken-1" text @click="validate">Cancel</v-btn>
+                        <v-btn  color="blue darken-1" text @click="triggerCloseDialog">Cancel</v-btn>
                         <v-btn :disabled="!valid" color="blue darken-1" text @click="triggerSubscribe">Make payment</v-btn>
                     </v-card-actions>
             </v-card>
