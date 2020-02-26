@@ -187,7 +187,7 @@ AZURE_LOCATION = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 AZURE_CONTAINER = "media"
 
 STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/static/'
 STATIC_ROOT = "static"
 
 STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
