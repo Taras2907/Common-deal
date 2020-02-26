@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = "/wwwroot/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -160,7 +160,7 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 EMAIL_USE_TLS = True
 
 
-# STATIC_ROOT = "../common_deal/static"
+STATIC_ROOT = "https://frontendcommondeal.blob.core.windows.net/%24web/static"
 STATIC_URL = '/static/'
 
 REST_SESSION_LOGIN = False
@@ -182,4 +182,4 @@ WEBPACK_LOADER = {
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static/images")
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = "https://frontendcommondeal.blob.core.windows.net/%24web/media"
