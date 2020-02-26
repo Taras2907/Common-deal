@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cli9&+u+gcxia)5#4ka^8gu8_wf(mud42r_@9bjtlla4zpud46'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -183,7 +183,7 @@ WEBPACK_LOADER = {
 AZURE_ACCOUNT_NAME = 'frontendcommondeal'
 AZURE_ACCOUNT_KEY = 'Am6+AvjIlMNUfJQL/6u8zlykD591OxOKbssUzIQ3OD6HvYh6cvxtU0SbTUxR4CAWo60+klitxxfbvGFi/ls1CQ=='
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-AZURE_LOCATION = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+AZURE_LOCATION = "static"
 AZURE_CONTAINER = "static"
 
 STATIC_LOCATION = 'static'
