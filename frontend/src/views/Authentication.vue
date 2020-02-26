@@ -2,15 +2,15 @@
     <v-card tile class="d-flex mx-auto" max-width="600px" max-height="700px">
         <v-tabs centered v-model="tab" fixed-tabs>
 
-            <v-tab :key="1">Login</v-tab>
-            <v-tab :key="2">Registration</v-tab>
+            <v-tab key="login">Login</v-tab>
+            <v-tab key="registration">Registration</v-tab>
 
-            <v-tab-item :key="1">
+            <v-tab-item key="login">
                 <LoginComponent></LoginComponent>
             </v-tab-item>
 
-            <v-tab-item :key="2">
-                <RegistrationComponent></RegistrationComponent>
+            <v-tab-item key="registration">
+                <RegistrationComponent @switch-tab="switchToLogin"></RegistrationComponent>
             </v-tab-item>
         </v-tabs>
     </v-card>
@@ -31,6 +31,9 @@
             }
         },
         methods: {
+            switchToLogin(){
+                this.tab = 0;
+            }
         }
     }
 </script>

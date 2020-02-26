@@ -2,18 +2,14 @@
     <v-card>
 
         <v-card-title>
-            Komputr
+            {{product.name}}
         </v-card-title>
 
         <v-img
-        src="https://pngimg.com/uploads/computer_pc/computer_pc_PNG7713.png"
+        :src="product.image"
         contain
         class="ma-2"
         fluid></v-img>
-
-        <v-card-text>
-            Very big komputr
-        </v-card-text>
 
         <v-container>
             <v-row no-gutters>
@@ -25,7 +21,7 @@
                         color="#FFA000">
                         <strong>88%</strong>
                     </v-progress-linear></v-col>
-                <v-col cols="4" align="center"><strong>1234,00 </strong>zł</v-col>
+                <v-col cols="4" align="center"><strong>{{product.price}} </strong>zł</v-col>
             </v-row>
         </v-container>
 
@@ -34,7 +30,13 @@
 
 <script>
     export default {
-        name: "Product"
+        name: "Product",
+        props: {
+            product: {
+                type: Object,
+                required: true
+            }
+        }
     }
 </script>
 

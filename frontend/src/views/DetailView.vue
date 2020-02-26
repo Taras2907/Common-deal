@@ -9,6 +9,7 @@
                 background-color="transparent"
                 color="basil"
                 grow
+                show-arrows
         >
             <v-tab
                     v-for="item in items"
@@ -24,9 +25,13 @@
                         color="basil"
                         flat
                 >
-                    <Description v-if="product != null" :product="product"
+
+                    <Description :product="product"
                                  :shortDescription="shortDescription"
                                  :expirationDate="expirationDate"
+                                 :image="currentImage"
+                                 @change-image="changeImage"
+                                 @toggle-overlay="toggleOverlay"
                     ></Description>
                 </v-card>
             </v-tab-item>
@@ -41,11 +46,11 @@
                                 <v-list-item-content>
                                     <v-list-item-title>
                                         <v-row>
-                                            <v-col :col="1">
+                                            <v-col col="6" sm="6">
                                                 <span class="pl-5">{{key}}</span>
                                             </v-col>
 
-                                            <v-col :col="2">
+                                            <v-col col="6" sm="6">
                                                 <span>{{value}}</span>
                                             </v-col>
                                         </v-row>
@@ -56,71 +61,25 @@
                     </v-list>
                 </v-card>
             </v-tab-item>
+
             <v-tab-item :key="3">
-                <h1>reviews</h1>
+                <Reviews></Reviews>
             </v-tab-item>
+
             <v-tab-item :key="4">
-                <v-card>
-                    <v-container class="pl-12" fluid>
-                        <h2>Checkout</h2>
-                        <p>Please note: all the rights provided for in the Law "On Protection of Consumer Rights" apply
-                            to
-                            buyers of our store.</p>
-                        <p>
-                            You can place an order in two ways:
-                        </p>
-                        <ul>
-                            <li>
-                                a) using the "Subscribe" directly in the store (the method is described below)
-                            </li>
-                            <li>
-                                b) by phone.
-                            </li>
-                        </ul>
-                        <p>Ordering using the "Subscribe" allows you to fully control the process. By entering your
-                            e-mail and password that you selected during registration you will get access to the status
-                            of
-                            your order. You will be able to control our receipt of payment, sending the order to you,
-                            the
-                            date of receipt of the order, the history of all previous orders.</p>
-                        <h2>Delivery</h2>
-                        <h2>Warranty</h2>
-                        <p>
-                            For all products sold in our store, a guarantee is provided from 2 weeks to 120 months,
-                            depending on the manufacturer's service policy. The warranty period is indicated in the
-                            description of each product on our website. The warranty certificate is confirmed by the
-                            manufacturer's warranty card, or the warranty card "Common Deal - online paltform".
-                        </p>
-                        <p>
-                            Checking the completeness and absence of defects in the product is carried out during the
-                            transfer of goods to the buyer. The completeness of the product is determined by the
-                            description
-                            of the product or the manual for its operation.
-                        </p>
-                        <h3>Exchange and return of goods within the first 14 days after purchase.</h3>
-                        <p>
-
-                            In accordance with the "Law on the Protection of Consumer Rights", buyers of our store have
-                            the right to exchange or return the goods purchased from us within the first 14 days after
-                            purchase.
-                            Please note - only new goods that were not in use and have no signs of use are subject to
-                            exchange or return: scratches, chips, scuffs, on the phone’s meter for no more than 5
-                            minutes of calls, the software has not been changed, etc.
-                            And also should be saved:
-                        </p>
-                        <ul>
-                            <li>full set of goods;</li>
-                            <li>integrity and all packaging components;</li>
-                            <li>label</li>
-                            <li>factory marking</li>
-                        </ul>
-                    </v-container>
-
-
-                </v-card>
+                <Shipping></Shipping>
             </v-tab-item>
 
         </v-tabs-items>
+        <div class="text-center">
+            <v-overlay :value="overlay">
+                <v-progress-circular
+                        indeterminate
+                        color="amber"
+                ></v-progress-circular>
+            </v-overlay>
+
+        </div>
     </v-card>
 </template>
 
@@ -128,6 +87,8 @@
     /* eslint-disable */
     import Description from "../components/detail_view/Description";
     import {apiService} from "../common/apiService";
+    import Shipping from "../components/detail_view/Shipping";
+    import Reviews from "../components/detail_view/Reviews";
 
     export default {
         name: "Tab",
@@ -137,13 +98,15 @@
                 required: true,
             }
         },
-        components: {Description},
+        components: {Reviews, Shipping, Description},
         data() {
             return {
                 tab: null,
                 product: {},
                 shortDescription: "",
                 expirationDate: "",
+                currentImage: "",
+                overlay: false,
                 items: [
                     {
                         id: 1,
@@ -171,13 +134,14 @@
                     .then(response => response.json())
                     .then(json_response => {
                         this.product = json_response;
-                        this.setTimer(json_response.expiration_date);
+                        this.currentImage = json_response.image;
+                        this.setTimer(this.product.expiration_date);
                         this.createShortDescription();
                     })
             },
-            createShortDescription(){
+            createShortDescription() {
                 let description = "";
-                for (let [key, value] of Object.entries(this.product.attributes) ){
+                for (let [key, value] of Object.entries(this.product.attributes)) {
                     description += key + "-" + value + "/";
                 }
                 this.shortDescription = description
@@ -201,6 +165,13 @@
                     }
 
                 }, 1000);
+            },
+            changeImage(image) {
+                console.log(image);
+                this.currentImage = image;
+            },
+            toggleOverlay() {
+                this.overlay = !this.overlay
             }
         },
         created() {

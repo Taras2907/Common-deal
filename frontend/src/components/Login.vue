@@ -80,6 +80,7 @@
                         if (!responseData.key) {
                             this.errors = responseData.non_field_errors
                         } else {
+                            this.$root.$emit('login-user');
                             localStorage.setItem("username", this.username);
                             this.$router.push("/");
                         }

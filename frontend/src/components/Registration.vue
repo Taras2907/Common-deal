@@ -14,7 +14,11 @@
                                     @blur="checkUserNameExists"
                                     :error-messages="usernameErrors"
                                     :loading="usernameChecking"
-                                    :rules="usernameRules"
+                                    :rules="[
+                                        usernameRules.nameIsRequired,
+                                        usernameRules.nameLenBiggerThan5Chars,
+                                        usernameRules.nameContainsLettersAndDigits,
+                                        ]"
                                     label="Username"
                                     hint="Username should be at least 5 characters long and contain only letters and digits"
                                     persistent-hint
@@ -69,7 +73,7 @@
                                     @input="emailErrors = null"
                                     :error-messages="emailErrors"
                                     v-model="email"
-                                    :rules="emailRules"
+                                    :rules="[emailRules.emailPatternIsValid, emailRules.emailRequired]"
                                     label="Email"
                                     hint="Enter your email"
                                     persistent-hint
@@ -82,7 +86,7 @@
                     </v-card-text>
 
                     <v-card-actions>
-                        <v-btn class="w-100 primary" color="white" :disabled="!valid" text @click="validate">Register
+                        <v-btn class="w-100 primary" :loading="isRegistering" color="white" :disabled="false" text @click="validate">Register
                         </v-btn>
                     </v-card-actions>
 
@@ -102,11 +106,11 @@
         data() {
             return {
                 username: "",
-                usernameRules: [
-                    name => !!name || "Username is required",
-                    name => (name && name.length > 4) || "Username should be not less than 5 characters",
-                    name => /^([a-z]|[A-Z]|[0-9])*$/.test(name) || "Username should contain only letters and digits", // . _ -
-                ],
+                usernameRules: {
+                    nameIsRequired: name => !!name || "Username is required",
+                    nameLenBiggerThan5Chars: name => (name && name.length > 4) || "Username should be not less than 5 characters",
+                    nameContainsLettersAndDigits: name => /^([a-z]|[A-Z]|[0-9])*$/.test(name) || "Username should contain only letters and digits", // . _ -
+                },
                 usernameChecking: false,
 
                 password1: "",
@@ -125,10 +129,10 @@
                 show2: false,
 
                 email: null,
-                emailRules: [
-                    email => !!email || "email is required",
-                    email => /.+@.+\..+/.test(email) || 'E-mail must be valid',
-                ],
+                emailRules: {
+                    emailRequired: email => !!email || "email is required",
+                    emailPatternIsValid: email => /.+@.+\..+/.test(email) || 'E-mail must be valid',
+                },
                 isRegistering: false,
                 usernameErrors: null,
                 passwordErrors: null,
@@ -144,13 +148,25 @@
             color() {
                 let hasOneCapitalLetter = p => /[A-Z]/.test(p) ? 1 : 0;
                 let hasOneDigit = p => /[0-9]/.test(p) ? 1 : 0;
-                let has8charsLen = p => p.length > 8 ? 1 : 0;
+                let has8charsLen = p => p.length > 7 ? 1 : 0;
                 let theColor = hasOneCapitalLetter(this.password1) +
                     hasOneDigit(this.password1) +
                     has8charsLen(this.password1);
                 let colors = {0: 'error', 1: 'error', 2: 'warning', 3: 'success'};
                 return colors[theColor]
             },
+            usernameIsValid() {
+                let rules = this.usernameRules;
+                return rules.nameContainsLettersAndDigits(this.username) &&
+                    rules.nameIsRequired(this.username) &&
+                    rules.nameLenBiggerThan5Chars(this.username)
+            },
+            emailIsValid() {
+                let rules = this.emailRules;
+                return rules.emailRequired(this.email) &&
+                    rules.emailPatternIsValid(this.email)
+            },
+
         },
         methods: {
             registerUser() {
@@ -169,12 +185,13 @@
                         if (!responseData.key) {
                             this.applyErrors(responseData)
                         } else {
-                            this.username = '';
-                            this.password1 = '';
-                            this.password2 = '';
-                            this.email = '';
                             this.$emit('switch-tab');
                             location.reload();
+                            // this.username = '';
+                            // this.password1 = '';
+                            // this.password2 = '';
+                            // this.email = '';
+
                         }
                     })
                     .catch(error => console.log(error))
@@ -192,44 +209,52 @@
                 }
             },
             checkUserNameExists() {
-                let endpoint = '/api/rest-auth/user/name/';
-                this.usernameChecking = true;
-                apiService(endpoint, "POST", {username: this.username})
-                    .then(response => response.json())
-                    .then(json_response => {
-                        setTimeout(() => {
-                            this.usernameChecking = false;
-                            if (json_response.message) {
-                                this.usernameErrors = [json_response.message]
-                            } else {
-                                this.usernameErrors = null;
-                            }
+                if (this.usernameIsValid === true) {
 
-                        }, 1000)
-                    })
-                    .catch(error => console.log(error))
+                    let endpoint = '/api/rest-auth/user/name/';
+                    this.usernameChecking = true;
 
+                    apiService(endpoint, "POST", {username: this.username})
+                        .then(response => response.json())
+                        .then(json_response => {
+                            setTimeout(() => {
+
+                                this.usernameChecking = false;
+                                if (json_response.message) {
+                                    this.usernameErrors = [json_response.message]
+                                } else {
+                                    this.usernameErrors = null;
+                                }
+
+                            }, 1000)
+                        })
+                        .catch(error => console.log(error))
+                }
             }
             ,
             checkEmailExists() {
-                let endpoint = '/api/rest-auth/user/email/';
-                this.emailChecking = true;
-                apiService(endpoint, "POST", {email: this.email})
-                    .then(response => response.json())
-                    .then(json_response => {
-                        setTimeout(() => {
-                            this.emailChecking = false;
-                            if (json_response.response.exists) {
-                                this.emailErrors = [json_response.response.message]
-                            } else {
-                                this.emailErrors = null
-                            }
+                if (this.emailIsValid === true) {
+                    let endpoint = '/api/rest-auth/user/email/';
+                    this.emailChecking = true;
+                    apiService(endpoint, "POST", {email: this.email})
+                        .then(response => response.json())
+                        .then(json_response => {
+                            setTimeout(() => {
+                                this.emailChecking = false;
+                                if (json_response.response.exists) {
+                                    this.emailErrors = [json_response.response.message]
+                                } else {
+                                    this.emailErrors = null
+                                }
 
-                        }, 1500);
+                            }, 1000);
 
 
-                    })
-                    .catch(error => console.log(error))
+                        })
+                        .catch(error => console.log(error))
+                }
+
+
             }
             ,
             validate() {

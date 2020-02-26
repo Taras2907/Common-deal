@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -89,7 +89,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'common_deal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 #
@@ -134,7 +133,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -152,33 +150,20 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
-# Email config
-
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-
-# SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
-SENDGRID_API_KEY = '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'
-
-SENDGRID_SANDBOX_MODE_IN_DEBUG=False
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-
-EMAIL_HOST_USER = 'common_deal_send_emails'
-
+EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-
 EMAIL_PORT = 587
-
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = "Common_deal@some.com"
 
 # STATIC_ROOT = "../common_deal/static"
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    "frontend/dist",
-]
 
+REST_SESSION_LOGIN = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -189,8 +174,12 @@ REST_FRAMEWORK = {
 }
 
 WEBPACK_LOADER = {
-    'DEFAULT':{
+    'DEFAULT': {
         'BUNDLE_DIR_NAME': 'dist/',
         'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
     }
 }
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static/images")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

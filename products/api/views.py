@@ -59,3 +59,4 @@ class ProductRetrieveUpdateDeleteView(APIView):
         product = self.get_object(pk)
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
