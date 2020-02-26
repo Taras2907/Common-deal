@@ -1,17 +1,16 @@
 <template>
     <v-list>
-        <v-list-item-group v-model="item" color="primary">
+        <v-list-item-group v-model="image" color="primary">
             <v-list-item class="px-1 py-0"
-                    v-for="(item, i) in items"
+                    v-for="(image, i) in images"
                     :key="i"
             >
                 <v-list-item-content class="py-1">
                     <v-img contain
                            aspect-ratio="1"
-                           @click="triggerChangeMainImage(item)"
-                           :lazy-src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${item}`"
-                           :src="`https://frontendcommondeal.blob.core.windows.net/%24web/img/${item}`"></v-img>
-
+                           @click="triggerChangeMainImage(image.image)"
+                           :lazy-src="image.image"
+                           :src="image.image"></v-img>
                 </v-list-item-content>
             </v-list-item>
         </v-list-item-group>
@@ -21,15 +20,10 @@
 <script>
     export default {
         name: "ListImageComponent",
+        props:["images"],
         data() {
             return {
-                items: [
-                    "asus1.jpeg",
-                    "asus2.jpeg",
-                    "asus3.jpg",
-                    "asus4.jpg",
-                ],
-                item: null,
+                image: null,
                 isSelected: null,
             }
         },

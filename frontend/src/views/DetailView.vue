@@ -12,8 +12,8 @@
                 show-arrows
         >
             <v-tab
-                   v-for="item in items"
-                   :key="item.id"
+                    v-for="item in items"
+                    :key="item.id"
             >
                 {{ item.name }}
             </v-tab>
@@ -25,9 +25,13 @@
                         color="basil"
                         flat
                 >
-                    <Description v-if="product != null" :product="product"
+
+                    <Description :product="product"
                                  :shortDescription="shortDescription"
                                  :expirationDate="expirationDate"
+                                 :image="currentImage"
+                                 @change-image="changeImage"
+                                 @toggle-overlay="toggleOverlay"
                     ></Description>
                 </v-card>
             </v-tab-item>
@@ -57,14 +61,25 @@
                     </v-list>
                 </v-card>
             </v-tab-item>
+
             <v-tab-item :key="3">
                 <Reviews></Reviews>
             </v-tab-item>
+
             <v-tab-item :key="4">
                 <Shipping></Shipping>
             </v-tab-item>
 
         </v-tabs-items>
+        <div class="text-center">
+            <v-overlay :value="overlay">
+                <v-progress-circular
+                        indeterminate
+                        color="amber"
+                ></v-progress-circular>
+            </v-overlay>
+
+        </div>
     </v-card>
 </template>
 
@@ -90,6 +105,8 @@
                 product: {},
                 shortDescription: "",
                 expirationDate: "",
+                currentImage: "",
+                overlay: false,
                 items: [
                     {
                         id: 1,
@@ -117,7 +134,8 @@
                     .then(response => response.json())
                     .then(json_response => {
                         this.product = json_response;
-                        this.setTimer(json_response.expiration_date);
+                        this.currentImage = json_response.image;
+                        this.setTimer(this.product.expiration_date);
                         this.createShortDescription();
                     })
             },
@@ -147,6 +165,13 @@
                     }
 
                 }, 1000);
+            },
+            changeImage(image) {
+                console.log(image);
+                this.currentImage = image;
+            },
+            toggleOverlay() {
+                this.overlay = !this.overlay
             }
         },
         created() {
