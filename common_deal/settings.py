@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = "https://common-deal.scm.azurewebsites.net//wwwroot/"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -160,7 +160,7 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 EMAIL_USE_TLS = True
 
 
-STATIC_ROOT = "https://common-deal.scm.azurewebsites.net/static/"
+STATIC_ROOT = "../static/"
 STATIC_URL = '/static/'
 
 REST_SESSION_LOGIN = False
