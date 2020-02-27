@@ -41,17 +41,14 @@
                 apiService(endpoint, "GET")
                     .then(response => response.json())
                     .then(json_response => {
-                        console.log(json_response)
                         this.products = json_response.results;
                         this.pages = Math.round(json_response.count / this.productsOnPage);
                     })
 
             },
             sortProducts(option) {
-                console.log(option)
                 let sortingOptions = {"Price: Low to High": "-price", "Price: High to Low": "price"};
                 let order = sortingOptions[option];
-                console.log(order)
                 this.currentOrder = order;
                 this.getProducts(order, this.currentPage)
             },

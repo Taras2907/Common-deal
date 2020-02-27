@@ -3,6 +3,7 @@
         clipped-left
         color="#FFC107"
         flat>
+        <v-app-bar-nav-icon class="hidden-lg-and-up" @click.stop="toggleDrawer"></v-app-bar-nav-icon>
         <router-link :to="{name:'home'}">
             <v-img
           class="m-2"
@@ -41,6 +42,12 @@
                 user_logged: !!localStorage.username,
             }
         },
+        methods: {
+            toggleDrawer() {
+                // this.$emit('toggleDrawer')
+                this.$root.$emit('toggleDrawer')
+            }
+        }
     }
 </script>
 

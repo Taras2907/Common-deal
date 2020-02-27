@@ -5,6 +5,7 @@ import DetailView from "../views/DetailView.vue"
 import Authenticaction from "../views/Authentication.vue";
 import PasswordRecover from "../views/PasswordRecover.vue";
 import PasswordRecoverConfirm from "../views/PasswordRecoverConfirm.vue";
+import Category from "../views/Category";
 import Home from "../views/Home";
 
 Vue.use(VueRouter);
@@ -40,6 +41,12 @@ const routes = [
         path: "/product/:id",
         name: "product-detail",
         component: DetailView,
+        props: true
+    },
+    {
+        path: "/category/:category",
+        name: "category",
+        component: Category,
         props: true
     }
 
