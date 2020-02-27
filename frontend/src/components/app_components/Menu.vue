@@ -9,15 +9,15 @@
     </template>
 
     <v-list>
-      <v-list-item>
-        <v-list-item-title>1</v-list-item-title>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-title>2</v-list-item-title>
-      </v-list-item>
+<!--      <v-list-item>-->
+<!--        <v-list-item-title>1</v-list-item-title>-->
+<!--      </v-list-item>-->
+<!--      <v-list-item>-->
+<!--        <v-list-item-title>2</v-list-item-title>-->
+<!--      </v-list-item>-->
       <v-divider></v-divider>
       <v-list-item>
-        <v-list-item-title @click="logoutUser">3</v-list-item-title>
+        <v-list-item-title @click="logoutUser"><a>Sign out</a></v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>

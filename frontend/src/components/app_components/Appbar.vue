@@ -3,10 +3,11 @@
         clipped-left
         color="#FFC107"
         flat>
+        <v-app-bar-nav-icon class="hidden-lg-and-up" @click.stop="toggleDrawer"></v-app-bar-nav-icon>
         <router-link :to="{name:'home'}">
             <v-img
           class="m-2"
-          src="@/assets/logo.png"
+          :src="'https://frontendcommondeal.blob.core.windows.net/%24web/media/logo.png'"
           max-width="60"
           max-height="60"
           contain>
@@ -17,7 +18,7 @@
 
         <v-btn v-if="!user_logged"
           outlined
-          :to="'authentication'"
+          :to="{name:'authentication'}"
           absolute
           right>Sign In
         </v-btn>
@@ -41,6 +42,12 @@
                 user_logged: !!localStorage.username,
             }
         },
+        methods: {
+            toggleDrawer() {
+                // this.$emit('toggleDrawer')
+                this.$root.$emit('toggleDrawer')
+            }
+        }
     }
 </script>
 
