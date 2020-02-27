@@ -7,7 +7,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 from .permissions import IsSellerOrReadOnly
-from products.models import Product
+from products.models import Product, ProductCategory
 from products.api.serializers import ProductCategorySerializer, ProductSerializer, ProductSubcategorySerializer
 
 
@@ -17,7 +17,11 @@ class ProductListCreateView(APIView, PageNumberPagination):
 
     def get_queryset(self, request):
         order = self.request.query_params.get("orderby", default="id")
-        products = Product.objects.all().order_by(order)
+        subcategory = self.request.query_params.get("subcategory")
+        if subcategory:
+            products = Product.objects.filter(product_subcategory__name=subcategory.capitalize()).order_by(order)
+        else:
+            products = Product.objects.all().order_by(order)
         return self.paginate_queryset(products, self.request)
 
     def get(self, request):
@@ -60,3 +64,10 @@ class ProductRetrieveUpdateDeleteView(APIView):
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class ProductCategoryListView(APIView):
+
+    def get(self, request):
+        categories = ProductCategory.objects.all()
+        serializer = ProductCategorySerializer(categories, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

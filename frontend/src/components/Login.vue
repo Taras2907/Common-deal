@@ -6,7 +6,7 @@
                     :lazy-validation="false">
                 <v-card>
                     <v-card-text elevation="13">
-                        <v-col cols="12" sm="12" lg="12">
+                        <v-col cols="12" sm="12" lg="12" class="pb-0">
                             <v-text-field
                                     v-model="username"
                                     :rules="usernameRules"
@@ -18,7 +18,10 @@
                                     required
                             ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="12" lg="12">
+                        <v-col sm="4" lg="4" md="4" offset="8" class="px-0">
+                            <router-link :to="{name:'password-recover'}">Forgot password?</router-link>
+                        </v-col>
+                        <v-col cols="12" sm="12" lg="12" class="pt-0">
                             <v-text-field
                                     v-model="password"
                                     :rules="passwordRules"
@@ -94,7 +97,7 @@
                     this.loginUser()
                 }
             },
-            clearErrors(){
+            clearErrors() {
                 this.errors = null
             }
         }

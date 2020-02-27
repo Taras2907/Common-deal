@@ -10,6 +10,7 @@
         contain
         aspect-ratio="1.5"
         class="ma-2"
+        aspect-ratio="1.5"
         fluid></v-img>
 
         <v-container>

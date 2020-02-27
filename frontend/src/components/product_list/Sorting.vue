@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-col cols="4" class="p-0">
+        <v-col lg="4" sm="6" class="p-0 text-center">
             <v-select
                     @change="triggerSortOrder(sortOption)"
                     v-model="sortOption"
@@ -34,7 +34,6 @@
         },
         methods: {
             triggerSortOrder(sortOrder) {
-                console.log(sortOrder);
                 this.$emit('sort', sortOrder)
             }
         }

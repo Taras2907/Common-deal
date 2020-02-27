@@ -2,64 +2,67 @@
     <v-container>
         <Sorting @sort="sortProducts"></Sorting>
         <v-row>
-
-            <v-col md="3" sm="6" v-for="(product, index) in products" :key="index">
-                <router-link :to="{name: 'product-detail', params:{id: product.id}}">
-                    <Product :product="product"/>
-                </router-link>
+            <v-col md="3" sm="12" v-for="(product, index) in products" :key="index">
+                <Product :product="product"/>
             </v-col>
 
         </v-row>
+
     </v-container>
 
 </template>
 
 <script>
-    /* eslint-disable */
-
     import Product from "../components/product_list/Product";
     import Sorting from "../components/product_list/Sorting";
+
     import {apiService} from "../common/apiService";
 
     export default {
+        name: "Category",
         components: {Product, Sorting},
+        props: {
+            category: {
+                type: String,
+                required: true,
+            }
+        },
         data() {
             return {
                 products: [],
                 isLoading: false,
                 currentOrder: "-id",
                 productsOnPage: 8,
-                pages: null,
                 sortOption: "Price: Low to High",
                 currentPage: 1,
             }
         },
         methods: {
-            getProducts(order, page) {
-                let endpoint = `/api/products/?orderby=${order}&page=${page}`;
-                this.isLoading = true;
-                apiService(endpoint, "GET")
+            loadProducts(order, page) {
+                let endpoint = `/api/products/?subcategory=${this.category}&orderby=${order}&page=${page}`;
+                apiService(endpoint, 'GET')
                     .then(response => response.json())
-                    .then(json_response => {
-                        this.products = json_response.results;
-                        this.pages = Math.round(json_response.count / this.productsOnPage);
+                    .then(responseData => {
+                        this.products = responseData.results
                     })
-
+                    .catch(error => console.log(error))
             },
             sortProducts(option) {
                 let sortingOptions = {"Price: Low to High": "price", "Price: High to Low": "-price"};
                 let order = sortingOptions[option];
                 this.currentOrder = order;
-                this.getProducts(order, this.currentPage)
+                this.loadProducts(order, this.currentPage)
             },
-            changePage(pageNumber) {
-                this.currentPage = pageNumber;
-                this.getProducts(this.currentOrder, pageNumber)
-            }
-
         },
         created() {
-            this.getProducts(this.currentOrder, this.currentPage)
+            this.loadProducts(this.currentOrder, this.currentPage)
+        },
+        updated() {
+            this.loadProducts(this.currentOrder, this.currentPage)
         }
-    };
+    }
 </script>
+
+<style scoped>
+
+</style>
