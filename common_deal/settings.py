@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'cli9&+u+gcxia)5#4ka^8gu8_wf(mud42r_@9bjtlla4zpud46'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -110,9 +110,9 @@ WSGI_APPLICATION = 'common_deal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "postgres",
-        'USER': "katrychtaras@cornel-server",
-        'PASSWORD': "Katamaran29",
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("USER_NAME"),
+        'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
         'HOST': 'cornel-server.postgres.database.azure.com',
         'PORT': '',
     }
@@ -155,7 +155,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
-SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
@@ -164,7 +164,7 @@ EMAIL_PORT = 587
 SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'CommanDeal.com'
+DEFAULT_FROM_EMAIL = 'CommonDeal.com'
 
 REST_SESSION_LOGIN = False
 
@@ -185,7 +185,7 @@ WEBPACK_LOADER = {
 
 
 AZURE_ACCOUNT_NAME = 'frontendcommondeal'
-AZURE_ACCOUNT_KEY = 'Am6+AvjIlMNUfJQL/6u8zlykD591OxOKbssUzIQ3OD6HvYh6cvxtU0SbTUxR4CAWo60+klitxxfbvGFi/ls1CQ=='
+AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 AZURE_LOCATION = "static"
 AZURE_CONTAINER = "$web"
