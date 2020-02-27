@@ -1,46 +1,64 @@
 <template>
-  <v-row>
-    <v-col md="6" sm="12" v-for="(product, index) in products" :key="index">
-      <Product :product="product"/>
-    </v-col>
+    <v-container>
+        <Sorting @sort="sortProducts"></Sorting>
+        <v-row>
+            <v-col md="3" sm="12" v-for="(product, index) in products" :key="index">
+                <Product :product="product"/>
+            </v-col>
 
-  </v-row>
+        </v-row>
+
+    </v-container>
+
 </template>
 
 <script>
     import Product from "../components/product_list/Product";
+    import Sorting from "../components/product_list/Sorting";
+
     import {apiService} from "../common/apiService";
 
     export default {
         name: "Category",
-        components: {Product},
+        components: {Product, Sorting},
         props: {
             category: {
                 type: String,
-                required: true
+                required: true,
             }
         },
         data() {
             return {
                 products: [],
+                isLoading: false,
+                currentOrder: "-id",
+                productsOnPage: 8,
+                sortOption: "Price: Low to High",
+                currentPage: 1,
             }
         },
         methods: {
-            loadProducts() {
-                let endpoint = `/api/products/?subcategory=${this.category}`;
+            loadProducts(order, page) {
+                let endpoint = `/api/products/?subcategory=${this.category}&orderby=${order}&page=${page}`;
                 apiService(endpoint, 'GET')
                     .then(response => response.json())
                     .then(responseData => {
                         this.products = responseData.results
                     })
                     .catch(error => console.log(error))
-            }
+            },
+            sortProducts(option) {
+                let sortingOptions = {"Price: Low to High": "price", "Price: High to Low": "-price"};
+                let order = sortingOptions[option];
+                this.currentOrder = order;
+                this.loadProducts(order, this.currentPage)
+            },
         },
         created() {
-            this.loadProducts()
+            this.loadProducts(this.currentOrder, this.currentPage)
         },
         updated() {
-            this.loadProducts()
+            this.loadProducts(this.currentOrder, this.currentPage)
         }
     }
 </script>

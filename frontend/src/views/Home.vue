@@ -47,7 +47,7 @@
 
             },
             sortProducts(option) {
-                let sortingOptions = {"Price: Low to High": "-price", "Price: High to Low": "price"};
+                let sortingOptions = {"Price: Low to High": "price", "Price: High to Low": "-price"};
                 let order = sortingOptions[option];
                 this.currentOrder = order;
                 this.getProducts(order, this.currentPage)
