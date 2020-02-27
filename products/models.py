@@ -15,7 +15,7 @@ class Product(models.Model):
     description = models.CharField(max_length=1000)
     price = models.FloatField()
     attributes = JSONField(blank=True, null=True, default=dict)
-    product_subcategory = models.ForeignKey('ProductSubcategory', on_delete=models.DO_NOTHING)
+    product_subcategory = models.ForeignKey('ProductSubcategory', on_delete=models.DO_NOTHING, related_name='subcategory')
     expiration_date = models.DateTimeField()
     image = models.ImageField(upload_to=upload_location, null=False, blank=False)
 
@@ -25,7 +25,7 @@ class Product(models.Model):
 
 class ProductSubcategory(models.Model):
     name = models.CharField(max_length=400)
-    product_category = models.ForeignKey('ProductCategory', on_delete=models.DO_NOTHING)
+    product_category = models.ForeignKey('ProductCategory', on_delete=models.DO_NOTHING, related_name='subcategories')
 
     class Meta:
         verbose_name_plural = "ProductSubcategories"

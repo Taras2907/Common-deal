@@ -7,6 +7,7 @@ from products.models import ProductSubcategory, ProductCategory, Product
 class ProductSerializer(serializers.ModelSerializer):
     manufacturer = serializers.StringRelatedField()
     seller = serializers.StringRelatedField()
+    product_subcategory = serializers.StringRelatedField()
 
     class Meta:
         model = Product
@@ -14,13 +15,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductSubcategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ProductSubcategory
         fields = "__all__"
 
 
 class ProductCategorySerializer(serializers.ModelSerializer):
+    subcategories = ProductSubcategorySerializer(many=True)
 
     class Meta:
         model = ProductCategory
