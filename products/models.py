@@ -47,7 +47,7 @@ class ProductCategory(models.Model):
 
 
 class Manufacturer(models.Model):
-    name = models.CharField(max_length=400)
+    name = models.CharField(max_length=400, unique=True)
 
     def __str__(self):
         return self.name

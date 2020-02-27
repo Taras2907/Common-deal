@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import NotFound from "../views/NotFound.vue";
+import NotFound from "../views/NotFound.vue";
 import DetailView from "../views/DetailView.vue"
 import Authenticaction from "../views/Authentication.vue";
 import PasswordRecover from "../views/PasswordRecover.vue";
@@ -21,11 +21,11 @@ const routes = [
         name: "authentication",
         component: Authenticaction
     },
-    // {
-    //     path: "*",
-    //     name: "page-not-found",
-    //     component: NotFound
-    // },
+    {
+        path: "*",
+        name: "page-not-found",
+        component: NotFound
+    },
     {
         path: "/password/recover",
         name: "password-recover",
