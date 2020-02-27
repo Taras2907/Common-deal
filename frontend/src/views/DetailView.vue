@@ -36,29 +36,18 @@
                 </v-card>
             </v-tab-item>
             <v-tab-item :key="2">
-                <v-card
-                        color="basil"
-                        flat
-                >
-                    <v-list>
-                        <v-card class="card">
-                            <v-list-item v-for="(value, key) in product.attributes" :key="key">
-                                <v-list-item-content>
-                                    <v-list-item-title>
-                                        <v-row>
-                                            <v-col col="6" sm="6">
-                                                <span class="pl-5">{{key}}</span>
-                                            </v-col>
 
-                                            <v-col col="6" sm="6">
-                                                <span>{{value}}</span>
-                                            </v-col>
-                                        </v-row>
-                                    </v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-                        </v-card>
-                    </v-list>
+                <v-card color="basil"
+                        flat>
+                    <v-row class="mx-0 px-0" v-for="(value, key) in product.attributes" :key="key">
+                        <v-col class="px-0" col="4">
+                            <span class="pl-5">{{key}}</span>
+                        </v-col>
+
+                        <v-col class="px-0" col="8">
+                            <span>{{value}}</span>
+                        </v-col>
+                    </v-row>
                 </v-card>
             </v-tab-item>
 
