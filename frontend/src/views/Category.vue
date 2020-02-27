@@ -2,7 +2,7 @@
     <v-container>
         <Sorting @sort="sortProducts"></Sorting>
         <v-row>
-            <v-col md="3" sm="12" v-for="(product, index) in products" :key="index">
+            <v-col md="4" sm="6" cols="12"  v-for="(product, index) in products" :key="index">
                 <Product :product="product"/>
             </v-col>
 
