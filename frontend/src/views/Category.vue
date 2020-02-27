@@ -3,7 +3,9 @@
         <Sorting @sort="sortProducts"></Sorting>
         <v-row>
             <v-col md="3" sm="12" v-for="(product, index) in products" :key="index">
-                <Product :product="product"/>
+                <router-link :to="{name: 'product-detail', params:{id: product.id}}">
+                    <Product :product="product"/>
+                </router-link>
             </v-col>
 
         </v-row>
