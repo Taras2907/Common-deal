@@ -184,16 +184,16 @@ WEBPACK_LOADER = {
 }
 
 
-AZURE_ACCOUNT_NAME = 'commondealstorage'
-AZURE_ACCOUNT_KEY = "bZ12pxlKULCXeLekgAnNXcfevkOQ84MbReHAN5OBQjxDJb8AxS3CH0jc74vLsKlqA/WNigjrmtrZjeFy2DlkwQ=="
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-AZURE_LOCATION = "static"
-AZURE_CONTAINER = "$web"
-
-STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}'
-STATIC_ROOT = "static"
-
-STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-DEFAULT_FILE_STORAGE = 'common_deal.custom_azure.AzureMediaStorage'
+# AZURE_ACCOUNT_NAME = 'commondealstorage'
+# AZURE_ACCOUNT_KEY = "bZ12pxlKULCXeLekgAnNXcfevkOQ84MbReHAN5OBQjxDJb8AxS3CH0jc74vLsKlqA/WNigjrmtrZjeFy2DlkwQ=="
+# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+# AZURE_LOCATION = "static"
+# AZURE_CONTAINER = "$web"
+#
+# STATIC_LOCATION = 'static'
+# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/'
+# STATIC_ROOT = "static"
+#
+# STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+# DEFAULT_FILE_STORAGE = 'common_deal.custom_azure.AzureMediaStorage'
 
