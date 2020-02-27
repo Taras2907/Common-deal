@@ -4,7 +4,7 @@
         >
             <v-img contain
                    aspect-ratio="1"
-                   :src="'https://frontendcommondeal.blob.core.windows.net/%24web/page_not_found.gif'"></v-img>
+                   :src="'https://commondealstorage.blob.core.windows.net/%24web/page_not_found.gif'"></v-img>
 
         </router-link>
     </v-container>
