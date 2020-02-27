@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container v-show="!isLoading">
         <Sorting @sort="sortProducts"></Sorting>
         <v-row>
 
@@ -10,6 +10,15 @@
             </v-col>
 
         </v-row>
+        <div class="text-center">
+            <v-overlay :value="isLoading">
+                <v-progress-circular
+                        indeterminate
+                        color="amber"
+                ></v-progress-circular>
+            </v-overlay>
+
+        </div>
     </v-container>
 
 </template>
@@ -43,6 +52,8 @@
                     .then(json_response => {
                         this.products = json_response.results;
                         this.pages = Math.round(json_response.count / this.productsOnPage);
+                        this.isLoading = false;
+
                     })
 
             },

@@ -1,5 +1,5 @@
 <template>
-    <h1>reviews</h1>
+    <p class="text-center font-weight-bold m-auto">Reviews will be in future</p>
 </template>
 
 <script>
