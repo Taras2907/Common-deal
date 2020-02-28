@@ -56,9 +56,6 @@
         },
         created() {
             this.loadProducts(this.currentOrder, this.currentPage)
-        },
-        updated() {
-            this.loadProducts(this.currentOrder, this.currentPage)
         }
     }
 </script>
