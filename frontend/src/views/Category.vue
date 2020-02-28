@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col md="6" sm="12" v-for="(product, index) in products" :key="index">
+    <v-col md="3" sm="12" v-for="(product, index) in products" :key="index">
       <Product :product="product"/>
     </v-col>
 
@@ -39,9 +39,9 @@
         created() {
             this.loadProducts()
         },
-        updated() {
-            this.loadProducts()
-        }
+        // updated() {
+        //     this.loadProducts()
+        // }
     }
 </script>
 

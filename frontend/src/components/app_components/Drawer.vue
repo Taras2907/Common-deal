@@ -21,8 +21,10 @@
         <v-list-item
                 v-for="subcategory in category.subcategories"
                 :key="subcategory.name"
-                :to="{ name: 'category', params: { category: subcategory.name.toLowerCase() }}"
-        >
+                @click="$router.push({ name: 'category', params: { category: subcategory.name.toLowerCase() }})"
+                >
+<!--                :to="{ name: 'category', params: { category: subcategory.name.toLowerCase() }}"-->
+<!--        >-->
           <v-list-item-content>
             <v-list-item-title v-text="subcategory.name"></v-list-item-title>
           </v-list-item-content>
