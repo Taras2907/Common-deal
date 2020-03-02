@@ -33,7 +33,7 @@
             return {
                 products: [],
                 isLoading: false,
-                currentOrder: "Price: Low to High",
+                currentOrder: "-price",
                 productsOnPage: 8,
                 sortOption: "Price: Low to High",
                 currentPage: 1,
@@ -59,9 +59,6 @@
         created() {
             this.loadProducts(this.currentOrder, this.currentPage)
         },
-        updated() {
-            this.loadProducts(this.currentOrder, this.currentPage)
-        }
     }
 </script>
 

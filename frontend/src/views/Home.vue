@@ -36,7 +36,7 @@
             return {
                 products: [],
                 isLoading: false,
-                currentOrder: "-id",
+                currentOrder: "price",
                 productsOnPage: 8,
                 pages: null,
                 sortOption: "Price: Low to High",
