@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.pagination import LimitOffsetPagination
 
 from products.models import ProductSubcategory, ProductCategory, Product, ProductImage
 

@@ -28,12 +28,7 @@ urlpatterns = [
 
     path('', TemplateView.as_view(template_name='application.html'), name="entry-point"),
 
-    # path('offers/', include('offers.urls')),
-    # path('products/', include('products.urls')),
-    # path('users/', include('users.urls')),
-    # path('search/', include('search.urls')),
 ]
-
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

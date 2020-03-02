@@ -1,4 +1,3 @@
-
 def upload_location_main_image(instance, filename):
     return f"{instance.seller.id}/{filename}"
 

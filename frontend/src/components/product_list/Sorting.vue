@@ -1,20 +1,20 @@
 <template>
-    <v-row justify="center">
-        <v-col lg="4" sm="6" class="p-0 text-center">
-            <v-select
-                    @change="triggerSortOrder(sortOption)"
-                    v-model="sortOption"
-                    :items="items"
-                    label="Low to High"
-                    dense
-                    solo
-            ></v-select>
-        </v-col>
-    </v-row>
+  <v-row justify="center">
+    <v-col lg="4" sm="6" class="p-0 text-center">
+      <v-select
+        @change="triggerSortOrder(sortOption)"
+        v-model="sortOption"
+        :items="items"
+        label="Low to High"
+        dense
+        solo
+      ></v-select>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
 
     import {apiService} from "../../common/apiService.js";
 

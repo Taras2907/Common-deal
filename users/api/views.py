@@ -13,7 +13,7 @@ class UsernameIsUsedView(APIView):
             return Response({"message": "A user with that username already exists"},
                             status=status.HTTP_200_OK)
         else:
-            return Response({},status=status.HTTP_200_OK)
+            return Response({}, status=status.HTTP_200_OK)
 
 
 class EmailIsUsedView(APIView):
@@ -28,7 +28,7 @@ class EmailIsUsedView(APIView):
             }}
             return Response(response, status=status.HTTP_200_OK)
         else:
-            response = {"response":{
+            response = {"response": {
                 "message": "There is no user with such email.",
                 "exists": False,
             }}

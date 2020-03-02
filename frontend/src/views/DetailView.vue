@@ -1,79 +1,70 @@
 <template>
-    <v-card color="basil">
-        <v-card-title class="text-center justify-center py-6">
-            <h3 class="font-weight-bold basil--text">{{this.product.name}}</h3>
-        </v-card-title>
+  <v-card color="basil">
+    <v-card-title class="text-center justify-center py-6">
+      <h3 class="font-weight-bold basil--text">{{ this.product.name }}</h3>
+    </v-card-title>
 
-        <v-tabs
-                v-model="tab"
-                background-color="transparent"
-                color="basil"
-                grow
-                show-arrows
-        >
-            <v-tab
-                    v-for="item in items"
-                    :key="item.id"
-            >
-                {{ item.name }}
-            </v-tab>
-        </v-tabs>
+    <v-tabs
+      v-model="tab"
+      background-color="transparent"
+      color="basil"
+      grow
+      show-arrows
+    >
+      <v-tab v-for="item in items" :key="item.id">
+        {{ item.name }}
+      </v-tab>
+    </v-tabs>
 
-        <v-tabs-items v-model="tab" class="image">
-            <v-tab-item :key="1">
-                <v-card
-                        color="basil"
-                        flat
-                >
+    <v-tabs-items v-model="tab" class="image">
+      <v-tab-item :key="1">
+        <v-card color="basil" flat>
+          <Description
+            :product="product"
+            :shortDescription="shortDescription"
+            :expirationDate="expirationDate"
+            :image="currentImage"
+            @change-image="changeImage"
+            @toggle-overlay="toggleOverlay"
+          ></Description>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item :key="2">
+        <v-card color="basil" flat>
+          <v-row
+            class="mx-0 px-0"
+            v-for="(value, key) in product.attributes"
+            :key="key"
+          >
+            <v-col class="px-0" col="4">
+              <span class="pl-5">{{ key }}</span>
+            </v-col>
 
-                    <Description :product="product"
-                                 :shortDescription="shortDescription"
-                                 :expirationDate="expirationDate"
-                                 :image="currentImage"
-                                 @change-image="changeImage"
-                                 @toggle-overlay="toggleOverlay"
-                    ></Description>
-                </v-card>
-            </v-tab-item>
-            <v-tab-item :key="2">
+            <v-col class="px-0" col="8">
+              <span>{{ value }}</span>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-tab-item>
 
-                <v-card color="basil"
-                        flat>
-                    <v-row class="mx-0 px-0" v-for="(value, key) in product.attributes" :key="key">
-                        <v-col class="px-0" col="4">
-                            <span class="pl-5">{{key}}</span>
-                        </v-col>
+      <v-tab-item :key="3">
+        <Reviews></Reviews>
+      </v-tab-item>
 
-                        <v-col class="px-0" col="8">
-                            <span>{{value}}</span>
-                        </v-col>
-                    </v-row>
-                </v-card>
-            </v-tab-item>
-
-            <v-tab-item :key="3">
-                <Reviews></Reviews>
-            </v-tab-item>
-
-            <v-tab-item :key="4">
-                <Shipping></Shipping>
-            </v-tab-item>
-
-        </v-tabs-items>
-        <div class="text-center">
-            <v-overlay :value="overlay">
-                <v-progress-circular
-                        indeterminate
-                        color="amber"
-                ></v-progress-circular>
-            </v-overlay>
-
-        </div>
-    </v-card>
+      <v-tab-item :key="4">
+        <Shipping></Shipping>
+      </v-tab-item>
+    </v-tabs-items>
+    <div class="text-center">
+      <v-overlay :value="overlay">
+        <v-progress-circular indeterminate color="amber"></v-progress-circular>
+      </v-overlay>
+    </div>
+  </v-card>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
     import Description from "../components/detail_view/Description";
     import {apiService} from "../common/apiService";
     import Shipping from "../components/detail_view/Shipping";

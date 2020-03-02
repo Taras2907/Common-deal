@@ -1,30 +1,32 @@
 <template>
-    <v-container v-show="!isLoading">
-        <Sorting @sort="sortProducts"></Sorting>
-        <v-row>
-
-            <v-col class="p-1" md="4" sm="6" cols="12" v-for="(product, index) in products" :key="index">
-                <router-link :to="{name: 'product-detail', params:{id: product.id}}">
-                    <Product :product="product"/>
-                </router-link>
-            </v-col>
-
-        </v-row>
-        <div class="text-center">
-            <v-overlay :value="isLoading">
-                <v-progress-circular
-                        indeterminate
-                        color="amber"
-                ></v-progress-circular>
-            </v-overlay>
-
-        </div>
-    </v-container>
-
+  <v-container v-show="!isLoading">
+    <Sorting @sort="sortProducts"></Sorting>
+    <v-row>
+      <v-col
+        class="p-1"
+        md="4"
+        sm="6"
+        cols="12"
+        v-for="(product, index) in products"
+        :key="index"
+      >
+        <router-link
+          :to="{ name: 'product-detail', params: { id: product.id } }"
+        >
+          <Product :product="product" />
+        </router-link>
+      </v-col>
+    </v-row>
+    <div class="text-center">
+      <v-overlay :value="isLoading">
+        <v-progress-circular indeterminate color="amber"></v-progress-circular>
+      </v-overlay>
+    </div>
+  </v-container>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
 
     import Product from "../components/product_list/Product";
     import Sorting from "../components/product_list/Sorting";

@@ -1,104 +1,105 @@
 <template>
-    <v-row justify="center" class="mb-2">
-        <v-col cols="12" sm="10" md="8" lg="10">
-            <v-form ref="form"
-                    v-model="valid"
-                    :lazy-validation="false">
-                <v-card>
-                    <v-card-text>
+  <v-row justify="center" class="mb-2">
+    <v-col cols="12" sm="10" md="8" lg="10">
+      <v-form ref="form" v-model="valid" :lazy-validation="false">
+        <v-card>
+          <v-card-text>
+            <v-col cols="12" sm="12" lg="12">
+              <v-text-field
+                v-model="username"
+                @input="usernameErrors = null"
+                @blur="checkUserNameExists"
+                :error-messages="usernameErrors"
+                :loading="usernameChecking"
+                :rules="[
+                  usernameRules.nameIsRequired,
+                  usernameRules.nameLenBiggerThan5Chars,
+                  usernameRules.nameContainsLettersAndDigits
+                ]"
+                label="Username"
+                hint="Username should be at least 5 characters long and contain only letters and digits"
+                persistent-hint
+                required
+              ></v-text-field>
+            </v-col>
 
-                        <v-col cols="12" sm="12" lg="12">
-                            <v-text-field
-                                    v-model="username"
-                                    @input="usernameErrors = null"
-                                    @blur="checkUserNameExists"
-                                    :error-messages="usernameErrors"
-                                    :loading="usernameChecking"
-                                    :rules="[
-                                        usernameRules.nameIsRequired,
-                                        usernameRules.nameLenBiggerThan5Chars,
-                                        usernameRules.nameContainsLettersAndDigits,
-                                        ]"
-                                    label="Username"
-                                    hint="Username should be at least 5 characters long and contain only letters and digits"
-                                    persistent-hint
-                                    required
-                            ></v-text-field>
-                        </v-col>
+            <v-col cols="12" sm="12" lg="12">
+              <v-text-field
+                v-model="password1"
+                :rules="passwordRules"
+                label="Password"
+                hint="Eight characters sequence with at least 1 capital letter and 1 digit"
+                persistent-hint
+                required
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show1 ? 'text' : 'password'"
+                counter
+                loading
+                @click:append="show1 = !show1"
+              >
+                <template v-slot:progress>
+                  <v-progress-linear
+                    :value="progress"
+                    :color="color"
+                    absolute
+                    height="2"
+                  ></v-progress-linear>
+                </template>
+              </v-text-field>
+            </v-col>
 
-                        <v-col cols="12" sm="12" lg="12">
-                            <v-text-field
-                                    v-model="password1"
-                                    :rules="passwordRules"
-                                    label="Password"
-                                    hint="Eight characters sequence with at least 1 capital letter and 1 digit"
-                                    persistent-hint
-                                    required
-                                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :type="show1 ? 'text' : 'password'"
-                                    counter
-                                    loading
-                                    @click:append="show1 = !show1"
+            <v-col cols="12" sm="12" lg="12">
+              <v-text-field
+                v-model="password2"
+                :rules="password2Rules"
+                label="Confirm password"
+                hint="Repeat your password"
+                persistent-hint
+                required
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show2 ? 'text' : 'password'"
+                counter
+                @click:append="show2 = !show2"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="12" lg="12">
+              <v-text-field
+                @blur="checkEmailExists"
+                @input="emailErrors = null"
+                :error-messages="emailErrors"
+                v-model="email"
+                :rules="[
+                  emailRules.emailPatternIsValid,
+                  emailRules.emailRequired
+                ]"
+                label="Email"
+                hint="Enter your email"
+                persistent-hint
+                required
+                :loading="emailChecking"
+              ></v-text-field>
+            </v-col>
+          </v-card-text>
 
-                            >
-                                <template v-slot:progress>
-                                    <v-progress-linear
-                                            :value="progress"
-                                            :color="color"
-                                            absolute
-                                            height="2"
-                                    ></v-progress-linear>
-                                </template>
-                            </v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="12" lg="12">
-                            <v-text-field
-                                    v-model="password2"
-                                    :rules="password2Rules"
-                                    label="Confirm password"
-                                    hint="Repeat your password"
-                                    persistent-hint
-
-                                    required
-                                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :type="show2 ? 'text' : 'password'"
-                                    counter
-                                    @click:append="show2 = !show2"
-                            ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="12" lg="12">
-                            <v-text-field
-                                    @blur="checkEmailExists"
-                                    @input="emailErrors = null"
-                                    :error-messages="emailErrors"
-                                    v-model="email"
-                                    :rules="[emailRules.emailPatternIsValid, emailRules.emailRequired]"
-                                    label="Email"
-                                    hint="Enter your email"
-                                    persistent-hint
-                                    required
-                                    :loading="emailChecking"
-
-                            ></v-text-field>
-                        </v-col>
-
-                    </v-card-text>
-
-                    <v-card-actions>
-                        <v-btn class="w-100 primary" :loading="isRegistering" color="white" :disabled="false" text @click="validate">Register
-                        </v-btn>
-                    </v-card-actions>
-
-                </v-card>
-            </v-form>
-        </v-col>
-    </v-row>
-
+          <v-card-actions>
+            <v-btn
+              class="w-100 primary"
+              :loading="isRegistering"
+              color="white"
+              :disabled="false"
+              text
+              @click="validate"
+              >Register
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
     import {apiService} from "../common/apiService";
 
     export default {

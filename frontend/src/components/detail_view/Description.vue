@@ -1,84 +1,84 @@
 <template>
-    <v-row class="mx-0 px-0">
-        <v-col cols="2" class="pt-0 pr-0 pl-6">
-            <ListImageComponent :images="product.images" @change-image="triggerChangeImage"></ListImageComponent>
-        </v-col>
-        <v-col cols="4">
-            <v-img max-height="540"
-                   max-width="540"
-                   :lazy-src="image"
-                   :src="image"></v-img>
-            <v-container fluid>
-                <p>{{this.shortDescription}}</p>
-            </v-container>
-        </v-col>
-        <v-col class="productInfo" cols="6">
-            <v-card class="mb-3"
-                    :elevation="5"
-                    height="80"
-                    width="670"
-            >
-                <v-card-text>
-                    <v-container fluid class="my-0 py-0">
-                        <p class="headers pb-sm-0 pb-md-2 pb-lg-3">Time to end of a deal: </p>
-                        <p class="headers">{{this.expirationDate}}</p>
-                    </v-container>
-
-                </v-card-text>
+  <v-row class="mx-0 px-0">
+    <v-col cols="2" class="pt-0 pr-0 pl-6">
+      <ListImageComponent
+        :images="product.images"
+        @change-image="triggerChangeImage"
+      ></ListImageComponent>
+    </v-col>
+    <v-col cols="4">
+      <v-img
+        max-height="540"
+        max-width="540"
+        :lazy-src="image"
+        :src="image"
+      ></v-img>
+      <v-container fluid>
+        <p>{{ this.shortDescription }}</p>
+      </v-container>
+    </v-col>
+    <v-col class="productInfo" cols="6">
+      <v-card class="mb-3" :elevation="5" height="80" width="670">
+        <v-card-text>
+          <v-container fluid class="my-0 py-0">
+            <p class="headers pb-sm-0 pb-md-2 pb-lg-3">
+              Time to end of a deal:
+            </p>
+            <p class="headers">{{ this.expirationDate }}</p>
+          </v-container>
+        </v-card-text>
+      </v-card>
+      <v-card class="cardInfo" :elevation="5" height="250" width="670">
+        <v-row class="row mx-1 px-0">
+          <v-col cols="4" class="px-1">
+            <v-card class="text">
+              <p>${{ this.product.price }}</p>
             </v-card>
-            <v-card class="cardInfo"
-                    :elevation="5"
-                    height="250"
-                    width="670"
+          </v-col>
+          <v-col cols="4" class="px-1">
+            <v-btn
+              class="button p-0"
+              @click="toggleModal"
+              x-large
+              color="success"
+              :outlined="!isSubscribed"
+              dark
             >
-
-                <v-row class="row mx-1 px-0">
-                    <v-col cols="4" class="px-1">
-                        <v-card class="text">
-                            <p>${{this.product.price}}</p>
-                        </v-card>
-                    </v-col>
-                    <v-col cols="4" class="px-1">
-
-                        <v-btn class="button p-0"
-                               @click="toggleModal"
-                               x-large color="success"
-                               :outlined="!isSubscribed"
-                               dark>
-                            <p v-if="isSubscribed">Unsubscribe</p>
-                            <p v-else>Subscribe</p>
-                        </v-btn>
-                        <Dialog :dialog="dialog"
-                                @close-modal="toggleModal"
-                                @subscribe="subscribeUser"
-                        ></Dialog>
-
-
-                    </v-col>
-                    <v-col cols="4" class="px-1">
-                        <v-btn class="button p-0" @click="isLiked = ! isLiked"
-                               :outlined="isLiked"
-                               x-large color="success" dark>
-                            <v-icon class="button">mdi-heart</v-icon>
-                        </v-btn>
-
-                    </v-col>
-
-                </v-row>
-                <v-divider></v-divider>
-                <v-col cols="12">
-                    <p class="headers">The seller of this product is {{this.product.seller}}</p>
-                </v-col>
-            </v-card>
+              <p v-if="isSubscribed">Unsubscribe</p>
+              <p v-else>Subscribe</p>
+            </v-btn>
+            <Dialog
+              :dialog="dialog"
+              @close-modal="toggleModal"
+              @subscribe="subscribeUser"
+            ></Dialog>
+          </v-col>
+          <v-col cols="4" class="px-1">
+            <v-btn
+              class="button p-0"
+              @click="isLiked = !isLiked"
+              :outlined="isLiked"
+              x-large
+              color="success"
+              dark
+            >
+              <v-icon class="button">mdi-heart</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-divider></v-divider>
+        <v-col cols="12">
+          <p class="headers">
+            The seller of this product is {{ this.product.seller }}
+          </p>
         </v-col>
-
-    </v-row>
-
-
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
     import ListImageComponent from "./ListImageComponent";
     import Dialog from "./Dialog";
 
@@ -162,16 +162,4 @@
         min-width: unset !important;
 
     }
-
-    /*@media screen and (min-width: 601px) {*/
-    /*    .button {*/
-    /*        font-size: 20px;*/
-    /*    }*/
-    /*}*/
-
-    /*@media screen and (max-width: 600px) {*/
-    /*    .button  {*/
-    /*        font-size: 10px;*/
-    /*    }*/
-    /*}*/
 </style>

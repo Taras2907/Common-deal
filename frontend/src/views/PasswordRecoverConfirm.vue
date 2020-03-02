@@ -1,83 +1,82 @@
 <template>
-    <v-container class="mt-1" >
-        <v-container fluid v-if="passwordSuccessfullyChanged" class="mx-auto mt-4" >
-            <v-alert type="success" max-width="600px" class="mx-auto">
-                <p class="text">
-                    Password was successfully changed.
-                    You will be redirected to login page shortly.
-                </p>
-            </v-alert>
-
-        </v-container>
-        <v-row justify="center" v-else>
-            <v-form ref="form"
-                    v-model="valid"
-                    :lazy-validation="false">
-                <v-card max-width="400px">
-                    <v-card-text>
-                        <v-col cols="12">
-                            <p class="text">
-                                To finish reset password process fill the new password and
-                                confirm password fields.
-                            </p>
-                        </v-col>
-                        <v-divider class="my-1"></v-divider>
-                        <v-col cols="12" class="py-0">
-                            <v-text-field
-                                    v-model="password1"
-                                    :rules="password1Rules"
-                                    label="Password"
-                                    hint="Eight characters sequence with at least 1 capital letter and 1 digit"
-                                    persistent-hint
-                                    required
-                                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :type="show1 ? 'text' : 'password'"
-                                    counter
-                                    loading
-                                    @click:append="show1 = !show1"
-
-                            >
-                                <template v-slot:progress>
-                                    <v-progress-linear
-                                            :value="progress"
-                                            :color="color"
-                                            absolute
-                                            height="2"
-                                    ></v-progress-linear>
-                                </template>
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12" class="py-0">
-                            <v-text-field
-                                    v-model="password2"
-                                    :rules="password2Rules"
-                                    label="Confirm password"
-                                    hint="Repeat your password"
-                                    persistent-hint
-
-                                    required
-                                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :type="show2 ? 'text' : 'password'"
-                                    counter
-                                    @click:append="show2 = !show2"
-                            ></v-text-field>
-                        </v-col>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn class="w-100 primary" :loading="isChanging" :disabled="!valid" color="white" text
-                               @click="validate">Change password
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-form>
-        </v-row>
-
+  <v-container class="mt-1">
+    <v-container fluid v-if="passwordSuccessfullyChanged" class="mx-auto mt-4">
+      <v-alert type="success" max-width="600px" class="mx-auto">
+        <p class="text">
+          Password was successfully changed. You will be redirected to login
+          page shortly.
+        </p>
+      </v-alert>
     </v-container>
-
+    <v-row justify="center" v-else>
+      <v-form ref="form" v-model="valid" :lazy-validation="false">
+        <v-card max-width="400px">
+          <v-card-text>
+            <v-col cols="12">
+              <p class="text">
+                To finish reset password process fill the new password and
+                confirm password fields.
+              </p>
+            </v-col>
+            <v-divider class="my-1"></v-divider>
+            <v-col cols="12" class="py-0">
+              <v-text-field
+                v-model="password1"
+                :rules="password1Rules"
+                label="Password"
+                hint="Eight characters sequence with at least 1 capital letter and 1 digit"
+                persistent-hint
+                required
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show1 ? 'text' : 'password'"
+                counter
+                loading
+                @click:append="show1 = !show1"
+              >
+                <template v-slot:progress>
+                  <v-progress-linear
+                    :value="progress"
+                    :color="color"
+                    absolute
+                    height="2"
+                  ></v-progress-linear>
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" class="py-0">
+              <v-text-field
+                v-model="password2"
+                :rules="password2Rules"
+                label="Confirm password"
+                hint="Repeat your password"
+                persistent-hint
+                required
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show2 ? 'text' : 'password'"
+                counter
+                @click:append="show2 = !show2"
+              ></v-text-field>
+            </v-col>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              class="w-100 primary"
+              :loading="isChanging"
+              :disabled="!valid"
+              color="white"
+              text
+              @click="validate"
+              >Change password
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
     import {apiService} from "../common/apiService";
 
     export default {

@@ -137,12 +137,12 @@ class ProductListCreateViewTestCase(APITestCase):
     def test_not_authenticated_product_list_add(self):
         self.client.force_authenticate(user=None)
         new_product = {
-                          "seller": self.user,
-                          "name": "Iphone3",
-                          "description": "some fancy description",
-                          "price": 500.0,
-                          "product_subcategory": self.product_subcategory.id
-                      }
+            "seller": self.user,
+            "name": "Iphone3",
+            "description": "some fancy description",
+            "price": 500.0,
+            "product_subcategory": self.product_subcategory.id
+        }
         response = self.client.post(reverse("product-list"), data=new_product)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -150,12 +150,12 @@ class ProductListCreateViewTestCase(APITestCase):
     def test_authenticated_product_list_add(self):
         self.client.force_authenticate(user=self.user)
         new_product = {
-                          "seller": self.user,
-                          "name": "Iphone3",
-                          "description": "some fancy description",
-                          "price": 500.0,
-                          "product_subcategory": self.product_subcategory.id
-                      }
+            "seller": self.user,
+            "name": "Iphone3",
+            "description": "some fancy description",
+            "price": 500.0,
+            "product_subcategory": self.product_subcategory.id
+        }
         response = self.client.post(reverse("product-list"), data=new_product)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

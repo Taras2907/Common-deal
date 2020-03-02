@@ -94,31 +94,16 @@ WSGI_APPLICATION = 'common_deal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': os.environ.get("DATABASE_NAME"),
-#         'USER': os.environ.get("USER_NAME"),
-#         'PASSWORD': os.environ.get("USER_PASSWORD"),
-#         'HOST': 'localhost',
-#         # 'HOST': '192.168.11.211',
-#         'PORT': '',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "postgres",
-        'USER': "taras@common-server",
-        'PASSWORD': "Katamaran29",
-        'HOST': 'common-server.postgres.database.azure.com',
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("USER_NAME"),
+        'PASSWORD': os.environ.get("USER_PASSWORD"),
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -162,7 +147,6 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 
 STATIC_URL = '/static/'
 

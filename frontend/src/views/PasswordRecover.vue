@@ -1,56 +1,56 @@
 <template>
-    <v-container class="mt-1">
-        <v-container fluid v-if="emailSent" class="mx-auto">
-            <v-alert type="success" max-width="600px" class="mx-auto">
-                <p>
-                    Account recovery email sent to {{ email }} If you don’t see this email in
-                    your inbox within 15 minutes, look for it in your junk mail folder. If you
-                    find it there, please mark it as “Not Junk”.
-                </p>
-
-            </v-alert>
-        </v-container>
-        <v-row justify="center" v-else>
-            <v-form ref="form"
-                    v-model="valid"
-                    :lazy-validation="false">
-                <v-card max-width="400px">
-                    <v-card-text>
-                        <v-col cols="12">
-                            <p class="text">
-                                Forgot your account’s password or having trouble logging
-                                into your account? Enter your email and we’ll send you a
-                                recovery link.
-                            </p>
-                        </v-col>
-                        <v-divider class="my-1"></v-divider>
-                        <v-col cols="12" class="py-0">
-                            <v-text-field
-                                    v-model="email"
-                                    :rules="emailRules"
-                                    label="Email"
-                                    hint="Enter your email"
-                                    persistent-hint
-                                    required
-                            ></v-text-field>
-                        </v-col>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn class="w-100 primary" :loading="isSending" :disabled="!valid" color="white" text
-                               @click="validate">Send recover email
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-form>
-        </v-row>
-
+  <v-container class="mt-1">
+    <v-container fluid v-if="emailSent" class="mx-auto">
+      <v-alert type="success" max-width="600px" class="mx-auto">
+        <p>
+          Account recovery email sent to {{ email }} If you don’t see this email
+          in your inbox within 15 minutes, look for it in your junk mail folder.
+          If you find it there, please mark it as “Not Junk”.
+        </p>
+      </v-alert>
     </v-container>
-
-
+    <v-row justify="center" v-else>
+      <v-form ref="form" v-model="valid" :lazy-validation="false">
+        <v-card max-width="400px">
+          <v-card-text>
+            <v-col cols="12">
+              <p class="text">
+                Forgot your account’s password or having trouble logging into
+                your account? Enter your email and we’ll send you a recovery
+                link.
+              </p>
+            </v-col>
+            <v-divider class="my-1"></v-divider>
+            <v-col cols="12" class="py-0">
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                label="Email"
+                hint="Enter your email"
+                persistent-hint
+                required
+              ></v-text-field>
+            </v-col>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              class="w-100 primary"
+              :loading="isSending"
+              :disabled="!valid"
+              color="white"
+              text
+              @click="validate"
+              >Send recover email
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-    /* eslint-disable */
+/* eslint-disable */
     import {apiService} from "../common/apiService";
 
     export default {
