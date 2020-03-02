@@ -94,26 +94,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'common_deal.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': os.environ.get("DATABASE_NAME"),
-#         'USER': os.environ.get("USER_NAME"),
-#         'PASSWORD': os.environ.get("USER_PASSWORD"),
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "postgres",
-        'USER': "taras@common-server",
-        'PASSWORD': "Katamaran29",
-        'HOST': 'common-server.postgres.database.azure.com',
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("USER_NAME"),
+        'PASSWORD': os.environ.get("USER_PASSWORD"),
+        'HOST': os.environ.get("USER_HOST"),
         'PORT': '',
     }
 }
@@ -155,7 +143,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
-SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
@@ -184,8 +172,8 @@ WEBPACK_LOADER = {
 }
 
 
-AZURE_ACCOUNT_NAME = 'commondealstorage'
-AZURE_ACCOUNT_KEY = "bZ12pxlKULCXeLekgAnNXcfevkOQ84MbReHAN5OBQjxDJb8AxS3CH0jc74vLsKlqA/WNigjrmtrZjeFy2DlkwQ=="
+AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME")
+AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 AZURE_LOCATION = "static"
 AZURE_CONTAINER = "$web"
