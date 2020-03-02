@@ -7,13 +7,10 @@
     <router-link :to="{ name: 'home' }">
       <v-img
         class="m-2"
-        :src="
-          'https://frontendcommondeal.blob.core.windows.net/%24web/media/logo.png'
-        "
+        src="@/assets/logo.png"
         max-width="60"
         max-height="60"
-        contain
-      >
+        contain>
       </v-img>
     </router-link>
 
