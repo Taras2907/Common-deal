@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'cli9&+u+gcxia)5#4ka^8gu8_wf(mud42r_@9bjtlla4zpud46'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
 
     'phonenumber_field',
+    'azure',
+    'storages',
 
 ]
 
@@ -92,26 +94,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'common_deal.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': os.environ.get("DATABASE_NAME"),
-#         'USER': os.environ.get("USER_NAME"),
-#         'PASSWORD': os.environ.get("USER_PASSWORD"),
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "postgres",
-        'USER': "katrychtaras@cornel-server",
-        'PASSWORD': "Katamaran29",
-        'HOST': 'cornel-server.postgres.database.azure.com',
+        'NAME': os.environ.get("DATABASE_NAME"),
+        'USER': os.environ.get("USER_NAME"),
+        'PASSWORD': os.environ.get("USER_PASSWORD"),
+        'HOST': os.environ.get("USER_HOST"),
         'PORT': '',
     }
 }
@@ -153,7 +143,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 SITE_ID = 1
 
-SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
@@ -162,8 +152,7 @@ EMAIL_PORT = 587
 SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 EMAIL_USE_TLS = True
 
-
-STATIC_URL = '/static/'
+DEFAULT_FROM_EMAIL = 'CommonDeal.com'
 
 REST_SESSION_LOGIN = False
 
@@ -182,6 +171,17 @@ WEBPACK_LOADER = {
     }
 }
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static/images")
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+AZURE_ACCOUNT_NAME = os.environ.get("AZURE_ACCOUNT_NAME")
+AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+AZURE_LOCATION = "static"
+AZURE_CONTAINER = "$web"
+
+STATIC_LOCATION = 'static'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/'
+STATIC_ROOT = "static"
+
+STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+DEFAULT_FILE_STORAGE = 'common_deal.custom_azure.AzureMediaStorage'
+

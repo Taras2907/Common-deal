@@ -2,8 +2,10 @@
     <v-container>
         <Sorting @sort="sortProducts"></Sorting>
         <v-row>
-            <v-col md="3" sm="12" v-for="(product, index) in products" :key="index">
-                <Product :product="product"/>
+            <v-col  md="4" sm="6" cols="12" v-for="(product, index) in products" :key="index">
+                <router-link :to="{name: 'product-detail', params:{id: product.id}}">
+                    <Product :product="product"/>
+                </router-link>
             </v-col>
 
         </v-row>
@@ -31,7 +33,7 @@
             return {
                 products: [],
                 isLoading: false,
-                currentOrder: "-id",
+                currentOrder: "-price",
                 productsOnPage: 8,
                 sortOption: "Price: Low to High",
                 currentPage: 1,
@@ -57,9 +59,6 @@
         created() {
             this.loadProducts(this.currentOrder, this.currentPage)
         },
-        updated() {
-            this.loadProducts(this.currentOrder, this.currentPage)
-        }
     }
 </script>
 

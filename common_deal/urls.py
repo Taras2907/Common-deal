@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('api/', include('products.api.urls')),
 
-    path('', TemplateView.as_view(template_name='application.html'), name="entry-point"),
+    path('', TemplateView.as_view(template_name="application-production.html"), name="entry-point"),
 
     # path('offers/', include('offers.urls')),
     # path('products/', include('products.urls')),
@@ -36,5 +36,4 @@ urlpatterns = [
 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [re_path(r'^.*$', TemplateView.as_view(template_name='application-production.html'), name="entry-point")]

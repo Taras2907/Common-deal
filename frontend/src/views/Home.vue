@@ -1,15 +1,24 @@
 <template>
-    <v-container>
+    <v-container v-show="!isLoading">
         <Sorting @sort="sortProducts"></Sorting>
         <v-row>
 
-            <v-col md="3" sm="6" v-for="(product, index) in products" :key="index">
+            <v-col md="4" sm="6" cols="12" v-for="(product, index) in products" :key="index">
                 <router-link :to="{name: 'product-detail', params:{id: product.id}}">
                     <Product :product="product"/>
                 </router-link>
             </v-col>
 
         </v-row>
+        <div class="text-center">
+            <v-overlay :value="isLoading">
+                <v-progress-circular
+                        indeterminate
+                        color="amber"
+                ></v-progress-circular>
+            </v-overlay>
+
+        </div>
     </v-container>
 
 </template>
@@ -27,7 +36,7 @@
             return {
                 products: [],
                 isLoading: false,
-                currentOrder: "-id",
+                currentOrder: "price",
                 productsOnPage: 8,
                 pages: null,
                 sortOption: "Price: Low to High",
@@ -43,6 +52,8 @@
                     .then(json_response => {
                         this.products = json_response.results;
                         this.pages = Math.round(json_response.count / this.productsOnPage);
+                        this.isLoading = false;
+
                     })
 
             },

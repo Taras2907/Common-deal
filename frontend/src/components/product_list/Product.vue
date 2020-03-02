@@ -22,7 +22,7 @@
                         color="#FFA000">
                         <strong>88%</strong>
                     </v-progress-linear></v-col>
-                <v-col cols="4" align="center"><strong>{{product.price}} </strong>zł</v-col>
+                <v-col cols="4" align="center"><strong>{{product.price}} </strong>$</v-col>
             </v-row>
         </v-container>
 
