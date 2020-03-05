@@ -27,6 +27,7 @@
                                     :rules="passwordRules"
                                     label="Password"
                                     hint="Enter your password"
+                                    @input="clearErrors"
                                     persistent-hint
                                     required
                                     :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"

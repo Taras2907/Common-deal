@@ -39,16 +39,12 @@
                 let endpoint = `/api/rest-auth/logout/`;
                 apiService(endpoint, 'POST')
                     .then(response => response.json())
-                    .then(responseData => {
-                        if (responseData.ok) {
-                            this.$root.$emit('logout-user');
-                            this.username = null;
-                            localStorage.removeItem("username");
-                            this.$router.push("/");
-                        }
-
-
+                    .then(() => {
+                        this.$root.$emit("logout-user");
+                        this.username = null;
+                        localStorage.removeItem("username");
                     })
+
                     .catch(error => console.log(error))
             }
         }
