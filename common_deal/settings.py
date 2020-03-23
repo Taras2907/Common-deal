@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'azure',
     'storages',
 
+    'sendgrid_backend',
+
 ]
 
 MIDDLEWARE = [
