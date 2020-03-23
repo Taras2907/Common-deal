@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -148,7 +148,7 @@ SITE_ID = 1
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
