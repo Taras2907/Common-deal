@@ -59,8 +59,11 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
 
     'phonenumber_field',
+
     'azure',
     'storages',
+
+    'sendgrid_backend',
 
 ]
 
@@ -145,6 +148,7 @@ SITE_ID = 1
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY

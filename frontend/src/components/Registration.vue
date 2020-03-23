@@ -86,7 +86,7 @@
                     </v-card-text>
 
                     <v-card-actions>
-                        <v-btn class="w-100 primary" :loading="isRegistering" color="white" :disabled="false" text @click="validate">Register
+                        <v-btn class="w-100 primary" :loading="isRegistering" color="white" :disabled="!valid" text @click="validate">Register
                         </v-btn>
                     </v-card-actions>
 
