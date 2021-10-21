@@ -3,7 +3,7 @@ attrs==19.3.0
 azure-common==1.1.24
 azure-storage-blob==2.1.0
 azure-storage-common==2.1.0
-Babel==2.7.0
+Babel==2.9.1
 backcall==0.1.0
 certifi==2019.11.28
 cffi==1.14.0
